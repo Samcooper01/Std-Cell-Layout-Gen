@@ -1,0 +1,59 @@
+# cell:    sky130_fd_sc_hd__dlygate4sd1_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/nl/dlygate4sd1_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-09 20:53:08        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-09 20:53:08       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-09 20:53:08       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-09 20:53:08       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__dlygate4sd1_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/nl/dlygate4sd1_1.sp'.
+2026-07-09 20:53:08       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/nl/dlygate4sd1_1.sp
+2026-07-09 20:53:08       standalone     INFO: Supply net: VPWR
+2026-07-09 20:53:08       standalone     INFO: Ground net: VGND
+2026-07-09 20:53:08       standalone     INFO: Initialize placer
+2026-07-09 20:53:08       standalone     INFO: Find next transistor placement
+2026-07-09 20:53:08     euler_placer     INFO: Found 1 placement candidates.
+2026-07-09 20:53:08       standalone     INFO: Cell placement:
+
+(VPWR, A, NET30) |       None       | (VPWR, NET30, NET34) |       None       | (VPWR, NET34, AB) |       None       |  (VPWR, AB, X)  
+(VGND, A, NET30) |       None       | (VGND, NET30, NET34) |       None       | (VGND, NET34, AB) |       None       |  (VGND, AB, X)  
+
+2026-07-09 20:53:08    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 20:53:08    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 20:53:09           router     INFO: Start routing
+2026-07-09 20:53:09       pathfinder     INFO: Start global routing.
+2026-07-09 20:53:10       pathfinder     INFO: Routing iteration 0
+2026-07-09 20:53:11       pathfinder     INFO: Routing iteration 1
+2026-07-09 20:53:11       pathfinder     INFO: Routing iteration 2
+2026-07-09 20:53:11       pathfinder     INFO: Routing iteration 3
+2026-07-09 20:53:12       pathfinder     INFO: Routing iteration 4
+2026-07-09 20:53:12       pathfinder     INFO: Routing iteration 5
+2026-07-09 20:53:13       pathfinder     INFO: Global routing done in 5 iterations
+2026-07-09 20:53:13       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 20:53:13       standalone     INFO: Routing successful.
+2026-07-09 20:53:13       standalone     INFO: Insert well-taps.
+2026-07-09 20:53:14    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 20:53:14    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 20:53:17           router     INFO: Start routing
+2026-07-09 20:53:18       pathfinder     INFO: Start global routing.
+2026-07-09 20:53:18       pathfinder     INFO: Routing iteration 0
+2026-07-09 20:53:18       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-09 20:53:18       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 20:53:18      drc_cleaner     INFO: SMT solver: Z3Solver
+2026-07-09 20:53:18      drc_cleaner  WARNING: Fixed shapes are excluded from spacing rules.
+2026-07-09 20:53:18      drc_cleaner     INFO: Invoke SMT solver
+2026-07-09 20:53:18      drc_cleaner     INFO: SMT result: SAT
+2026-07-09 20:53:18       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__dlygate4sd1_1
+2026-07-09 20:53:18       standalone     INFO: LVS result: SUCCESS
+2026-07-09 20:53:18     magic_writer     INFO: Number of layers: 28
+2026-07-09 20:53:18     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__dlygate4sd1_1
+2026-07-09 20:53:18     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/out/sky130_fd_sc_hd__dlygate4sd1_1.mag
+2026-07-09 20:53:18       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/out/sky130_fd_sc_hd__dlygate4sd1_1.lef
+2026-07-09 20:53:18       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/out/sky130_fd_sc_hd__dlygate4sd1_1.gds
+2026-07-09 20:53:18     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlygate4sd1_1/out/sky130_fd_sc_hd__dlygate4sd1_1.oas
+2026-07-09 20:53:18       standalone     INFO: Done (Total duration: 0:00:10.409244)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

@@ -1,0 +1,516 @@
+<title>sky130-cellgen · Cell Schematics</title>
+<style>
+  :root{
+    --bg:#f5f7f9; --card:#ffffff; --ink:#16202a; --muted:#5a6b7a; --line:#d7e0e8;
+    --wire:#334552; --vpwr:#c8443b; --vgnd:#41607a; --net:#0c8f80; --nmos:#e7f2ef;
+    --pmos:#fdf0ec; --nmos-b:#0c8f80; --pmos-b:#c8443b; --accent:#0c8f80;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0b1014; --card:#121a21; --ink:#dbe6ee; --muted:#8ea0ae; --line:#243441;
+    --wire:#9fb0bd; --vpwr:#f0736a; --vgnd:#79a6c9; --net:#2fd4bf; --nmos:#0f2622;
+    --pmos:#2a1a18; --nmos-b:#2fd4bf; --pmos-b:#f0736a; --accent:#2fd4bf;
+  }}
+  :root[data-theme="light"]{--bg:#f5f7f9;--card:#fff;--ink:#16202a;--muted:#5a6b7a;--line:#d7e0e8;--wire:#334552;--vpwr:#c8443b;--vgnd:#41607a;--net:#0c8f80;--nmos:#e7f2ef;--pmos:#fdf0ec;--nmos-b:#0c8f80;--pmos-b:#c8443b;--accent:#0c8f80;}
+  :root[data-theme="dark"]{--bg:#0b1014;--card:#121a21;--ink:#dbe6ee;--muted:#8ea0ae;--line:#243441;--wire:#9fb0bd;--vpwr:#f0736a;--vgnd:#79a6c9;--net:#2fd4bf;--nmos:#0f2622;--pmos:#2a1a18;--nmos-b:#2fd4bf;--pmos-b:#f0736a;--accent:#2fd4bf;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:26px 22px 60px}
+  h1{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}
+  h2{font-size:20px;margin:34px 0 4px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  p{color:var(--ink);max-width:70ch} .muted{color:var(--muted)}
+  code{font-family:var(--mono);background:var(--line);padding:1px 5px;border-radius:4px;font-size:.9em}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card h3{margin:0;font-family:var(--mono);font-size:15px}
+  .card .fn{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin:2px 0 8px}
+  .card .note{font-size:13px;color:var(--muted);margin:8px 0 0}
+  .card svg{display:block;width:100%;height:auto;max-height:260px}
+  .legend{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.legend{grid-template-columns:1fr}}
+  svg text{font-family:var(--mono);fill:var(--ink)}
+  .wire{stroke:var(--wire);stroke-width:2;fill:none}
+  .rail-p{stroke:var(--vpwr);stroke-width:2.5}.rail-g{stroke:var(--vgnd);stroke-width:2.5}
+  .dot{fill:var(--wire)} .netlbl{fill:var(--net);font-weight:700}
+  .pbox{fill:var(--pmos);stroke:var(--pmos-b);stroke-width:1.6}
+  .nbox{fill:var(--nmos);stroke:var(--nmos-b);stroke-width:1.6}
+  .blk{fill:var(--card);stroke:var(--line);stroke-width:1.6}
+  .gate{fill:none;stroke:var(--wire);stroke-width:2}
+</style>
+
+<div class="wrap">
+<div class="eyebrow">sky130-cellgen · docs</div>
+<h1>Cell Schematics</h1>
+<p>One schematic per distinct topology (drive strength variants such as <code>_1 … _16</code> share the
+same structure, only the transistor widths change, so they are not repeated). The primitives are drawn
+at transistor level so you can see the CMOS structure; compound and sequential cells are drawn at gate
+or block level. The last section gives the rules to read every remaining variant from its name.</p>
+
+<div class="legend">
+  <div>
+    <div class="eyebrow">how to read a CMOS gate</div>
+    <p class="muted" style="margin:.4em 0 0">Static CMOS is two dual networks between the rails.
+    A <b style="color:var(--vpwr)">PMOS pull up network</b> ties the output to <code>VPWR</code>;
+    an <b style="color:var(--vgnd)">NMOS pull down network</b> ties it to <code>VGND</code>. Exactly
+    one network conducts at a time, so the output is always the <b>inverted</b> logic function.
+    <b>Transistors in series = AND</b>; <b>in parallel = OR</b>.</p>
+  </div>
+  <div>
+    <div class="eyebrow">symbols</div>
+    <svg viewBox="0 0 300 84">
+      <rect class="pbox" x="8" y="14" width="70" height="26" rx="5"/>
+      <text x="43" y="31" text-anchor="middle" font-size="12">P · A</text>
+      <text x="90" y="31" font-size="11" fill="var(--muted)">PMOS, gate = A</text>
+      <rect class="nbox" x="8" y="50" width="70" height="26" rx="5"/>
+      <text x="43" y="67" text-anchor="middle" font-size="12">N · A</text>
+      <text x="90" y="67" font-size="11" fill="var(--muted)">NMOS, gate = A</text>
+      <line class="rail-p" x1="200" y1="16" x2="292" y2="16"/><text x="200" y="12" font-size="10" fill="var(--vpwr)">VPWR</text>
+      <line class="rail-g" x1="200" y1="74" x2="292" y2="74"/><text x="200" y="84" font-size="10" fill="var(--vgnd)">VGND</text>
+      <text x="200" y="47" font-size="11" fill="var(--net)">nets in teal</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Inverters, NAND, NOR: the CMOS primitives</h2>
+<div class="grid">
+
+  <div class="card"><h3>inv</h3><div class="fn">Y = A'</div>
+  <svg viewBox="0 0 240 220">
+    <line class="rail-p" x1="30" y1="24" x2="210" y2="24"/><text x="30" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="30" y1="196" x2="210" y2="196"/><text x="30" y="210" font-size="11" fill="var(--vgnd)">VGND</text>
+    <!-- PMOS -->
+    <line class="wire" x1="120" y1="24" x2="120" y2="58"/>
+    <rect class="pbox" x="90" y="58" width="60" height="28" rx="5"/><text x="120" y="76" text-anchor="middle" font-size="12">P · A</text>
+    <!-- NMOS -->
+    <rect class="nbox" x="90" y="134" width="60" height="28" rx="5"/><text x="120" y="152" text-anchor="middle" font-size="12">N · A</text>
+    <line class="wire" x1="120" y1="162" x2="120" y2="196"/>
+    <!-- Y node -->
+    <line class="wire" x1="120" y1="86" x2="120" y2="134"/>
+    <line class="wire" x1="120" y1="110" x2="200" y2="110"/><circle class="dot" cx="120" cy="110" r="3"/>
+    <text x="206" y="114" class="netlbl" font-size="13">Y</text>
+    <!-- A input -->
+    <line class="wire" x1="90" y1="72" x2="60" y2="72"/><line class="wire" x1="90" y1="148" x2="60" y2="148"/>
+    <line class="wire" x1="60" y1="72" x2="60" y2="148"/><line class="wire" x1="60" y1="110" x2="30" y2="110"/>
+    <circle class="dot" cx="60" cy="110" r="3"/><text x="18" y="114" class="netlbl" font-size="13">A</text>
+  </svg>
+  <p class="note">The atom: one PMOS pulls Y high when A=0, one NMOS pulls Y low when A=1.</p></div>
+
+  <div class="card"><h3>nand2</h3><div class="fn">Y = (A·B)'</div>
+  <svg viewBox="0 0 300 240">
+    <line class="rail-p" x1="30" y1="24" x2="280" y2="24"/><text x="30" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="30" y1="216" x2="280" y2="216"/><text x="30" y="230" font-size="11" fill="var(--vgnd)">VGND</text>
+    <!-- PMOS A,B in parallel -->
+    <line class="wire" x1="110" y1="24" x2="110" y2="52"/><line class="wire" x1="210" y1="24" x2="210" y2="52"/>
+    <rect class="pbox" x="80" y="52" width="60" height="28" rx="5"/><text x="110" y="70" text-anchor="middle" font-size="12">P · A</text>
+    <rect class="pbox" x="180" y="52" width="60" height="28" rx="5"/><text x="210" y="70" text-anchor="middle" font-size="12">P · B</text>
+    <line class="wire" x1="110" y1="80" x2="110" y2="100"/><line class="wire" x1="210" y1="80" x2="210" y2="100"/>
+    <line class="wire" x1="110" y1="100" x2="210" y2="100"/>
+    <!-- Y -->
+    <line class="wire" x1="160" y1="100" x2="160" y2="128"/><circle class="dot" cx="160" cy="100" r="3"/>
+    <line class="wire" x1="160" y1="112" x2="270" y2="112"/><text x="276" y="116" class="netlbl" font-size="13">Y</text>
+    <!-- NMOS A,B in series -->
+    <rect class="nbox" x="130" y="128" width="60" height="28" rx="5"/><text x="160" y="146" text-anchor="middle" font-size="12">N · A</text>
+    <line class="wire" x1="160" y1="156" x2="160" y2="172"/>
+    <rect class="nbox" x="130" y="172" width="60" height="28" rx="5"/><text x="160" y="190" text-anchor="middle" font-size="12">N · B</text>
+    <line class="wire" x1="160" y1="200" x2="160" y2="216"/>
+    <!-- inputs -->
+    <line class="wire" x1="80" y1="66" x2="55" y2="66"/><line class="wire" x1="130" y1="142" x2="55" y2="142"/>
+    <line class="wire" x1="55" y1="66" x2="55" y2="142"/><text x="42" y="108" class="netlbl" font-size="13">A</text><circle class="dot" cx="55" cy="142" r="3"/>
+    <line class="wire" x1="240" y1="66" x2="265" y2="66"/><line class="wire" x1="190" y1="186" x2="265" y2="186"/>
+    <line class="wire" x1="265" y1="66" x2="265" y2="186"/><text x="270" y="150" class="netlbl" font-size="13">B</text><circle class="dot" cx="265" cy="186" r="3"/>
+  </svg>
+  <p class="note">PMOS in <b>parallel</b> (OR), NMOS in <b>series</b> (AND) → output low only when A and B are both high.</p></div>
+
+  <div class="card"><h3>nor2</h3><div class="fn">Y = (A+B)'</div>
+  <svg viewBox="0 0 300 240">
+    <line class="rail-p" x1="30" y1="24" x2="280" y2="24"/><text x="30" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="30" y1="216" x2="280" y2="216"/><text x="30" y="230" font-size="11" fill="var(--vgnd)">VGND</text>
+    <!-- PMOS A,B in series -->
+    <line class="wire" x1="160" y1="24" x2="160" y2="40"/>
+    <rect class="pbox" x="130" y="40" width="60" height="28" rx="5"/><text x="160" y="58" text-anchor="middle" font-size="12">P · A</text>
+    <line class="wire" x1="160" y1="68" x2="160" y2="84"/>
+    <rect class="pbox" x="130" y="84" width="60" height="28" rx="5"/><text x="160" y="102" text-anchor="middle" font-size="12">P · B</text>
+    <!-- Y -->
+    <line class="wire" x1="160" y1="112" x2="160" y2="140"/><circle class="dot" cx="160" cy="126" r="3"/>
+    <line class="wire" x1="160" y1="126" x2="270" y2="126"/><text x="276" y="130" class="netlbl" font-size="13">Y</text>
+    <!-- NMOS A,B in parallel -->
+    <rect class="nbox" x="80" y="140" width="60" height="28" rx="5"/><text x="110" y="158" text-anchor="middle" font-size="12">N · A</text>
+    <rect class="nbox" x="180" y="140" width="60" height="28" rx="5"/><text x="210" y="158" text-anchor="middle" font-size="12">N · B</text>
+    <line class="wire" x1="110" y1="140" x2="110" y2="126"/><line class="wire" x1="210" y1="140" x2="210" y2="126"/>
+    <line class="wire" x1="110" y1="126" x2="210" y2="126"/>
+    <line class="wire" x1="110" y1="168" x2="110" y2="216"/><line class="wire" x1="210" y1="168" x2="210" y2="216"/>
+    <!-- inputs -->
+    <line class="wire" x1="130" y1="54" x2="55" y2="54"/><line class="wire" x1="80" y1="154" x2="55" y2="154"/>
+    <line class="wire" x1="55" y1="54" x2="55" y2="154"/><text x="42" y="108" class="netlbl" font-size="13">A</text><circle class="dot" cx="55" cy="154" r="3"/>
+    <line class="wire" x1="190" y1="98" x2="265" y2="98"/><line class="wire" x1="240" y1="154" x2="265" y2="154"/>
+    <line class="wire" x1="265" y1="98" x2="265" y2="154"/><text x="270" y="128" class="netlbl" font-size="13">B</text><circle class="dot" cx="265" cy="98" r="3"/>
+  </svg>
+  <p class="note">The dual of NAND: PMOS in <b>series</b>, NMOS in <b>parallel</b> → output high only when A and B are both low.</p></div>
+
+  <div class="card"><h3>a21oi <span class="muted" style="font-weight:400">(AOI21)</span></h3><div class="fn">Y = ((A1·A2) + B1)'</div>
+  <svg viewBox="0 0 320 250">
+    <line class="rail-p" x1="20" y1="22" x2="300" y2="22"/><text x="20" y="16" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="20" y1="228" x2="300" y2="228"/><text x="20" y="242" font-size="11" fill="var(--vgnd)">VGND</text>
+    <!-- PUN: (A1 || A2) in series with B1 -->
+    <line class="wire" x1="90" y1="22" x2="90" y2="40"/><line class="wire" x1="190" y1="22" x2="190" y2="40"/>
+    <rect class="pbox" x="60" y="40" width="60" height="26" rx="5"/><text x="90" y="57" text-anchor="middle" font-size="11">P · A1</text>
+    <rect class="pbox" x="160" y="40" width="60" height="26" rx="5"/><text x="190" y="57" text-anchor="middle" font-size="11">P · A2</text>
+    <line class="wire" x1="90" y1="66" x2="90" y2="82"/><line class="wire" x1="190" y1="66" x2="190" y2="82"/><line class="wire" x1="90" y1="82" x2="190" y2="82"/>
+    <line class="wire" x1="140" y1="82" x2="140" y2="96"/>
+    <rect class="pbox" x="110" y="96" width="60" height="26" rx="5"/><text x="140" y="113" text-anchor="middle" font-size="11">P · B1</text>
+    <!-- Y -->
+    <line class="wire" x1="140" y1="122" x2="140" y2="150"/><circle class="dot" cx="140" cy="136" r="3"/>
+    <line class="wire" x1="140" y1="136" x2="290" y2="136"/><text x="296" y="140" class="netlbl" font-size="13">Y</text>
+    <!-- PDN: (A1 series A2) parallel B1 -->
+    <rect class="nbox" x="80" y="150" width="60" height="26" rx="5"/><text x="110" y="167" text-anchor="middle" font-size="11">N · A1</text>
+    <line class="wire" x1="110" y1="176" x2="110" y2="188"/>
+    <rect class="nbox" x="80" y="188" width="60" height="26" rx="5"/><text x="110" y="205" text-anchor="middle" font-size="11">N · A2</text>
+    <rect class="nbox" x="180" y="169" width="60" height="26" rx="5"/><text x="210" y="186" text-anchor="middle" font-size="11">N · B1</text>
+    <line class="wire" x1="110" y1="150" x2="110" y2="136"/>
+    <line class="wire" x1="210" y1="169" x2="210" y2="136"/><circle class="dot" cx="210" cy="136" r="3"/>
+    <line class="wire" x1="110" y1="214" x2="110" y2="228"/><line class="wire" x1="210" y1="195" x2="210" y2="228"/>
+  </svg>
+  <p class="note"><b>AOI means AND, then OR, then Invert</b>, done in one gate. The digits are the sizes of the AND groups: <code>a21oi</code> is one 2 input AND group (<code>A1·A2</code>) and one 1 input group (<code>B1</code>), the two OR'd together and then inverted, so <code>Y = ((A1·A2) + B1)'</code>. Static CMOS builds this whole compound function in a single stage (one pull up network, one pull down network), which is smaller and faster than wiring up separate AND, OR, and inverter cells. The family just varies the group pattern: <code>a22oi</code> is (2 AND) OR (2 AND), <code>a31oi</code> is (3 AND) OR (1), and so on.</p></div>
+
+  <div class="card"><h3>o21ai <span class="muted" style="font-weight:400">(OAI21)</span></h3><div class="fn">Y = ((A1+A2) · B1)'</div>
+  <svg viewBox="0 0 320 250">
+    <line class="rail-p" x1="20" y1="22" x2="300" y2="22"/><text x="20" y="16" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="20" y1="228" x2="300" y2="228"/><text x="20" y="242" font-size="11" fill="var(--vgnd)">VGND</text>
+    <!-- PUN: (A1 series A2) parallel B1 -->
+    <line class="wire" x1="90" y1="22" x2="90" y2="36"/>
+    <rect class="pbox" x="60" y="36" width="60" height="26" rx="5"/><text x="90" y="53" text-anchor="middle" font-size="11">P · A1</text>
+    <line class="wire" x1="90" y1="62" x2="90" y2="74"/>
+    <rect class="pbox" x="60" y="74" width="60" height="26" rx="5"/><text x="90" y="91" text-anchor="middle" font-size="11">P · A2</text>
+    <rect class="pbox" x="180" y="55" width="60" height="26" rx="5"/><text x="210" y="72" text-anchor="middle" font-size="11">P · B1</text>
+    <line class="wire" x1="210" y1="55" x2="210" y2="22"/><circle class="dot" cx="210" cy="22" r="3"/>
+    <line class="wire" x1="90" y1="100" x2="90" y2="118"/><line class="wire" x1="210" y1="81" x2="210" y2="118"/><line class="wire" x1="90" y1="118" x2="210" y2="118"/>
+    <!-- Y -->
+    <line class="wire" x1="150" y1="118" x2="150" y2="150"/><circle class="dot" cx="150" cy="118" r="3"/>
+    <line class="wire" x1="150" y1="134" x2="290" y2="134"/><text x="296" y="138" class="netlbl" font-size="13">Y</text>
+    <!-- PDN: (A1 || A2) series B1 -->
+    <rect class="nbox" x="80" y="150" width="60" height="26" rx="5"/><text x="110" y="167" text-anchor="middle" font-size="11">N · A1</text>
+    <rect class="nbox" x="180" y="150" width="60" height="26" rx="5"/><text x="210" y="167" text-anchor="middle" font-size="11">N · A2</text>
+    <line class="wire" x1="110" y1="150" x2="110" y2="134"/><line class="wire" x1="210" y1="150" x2="210" y2="134"/>
+    <line class="wire" x1="110" y1="176" x2="110" y2="190"/><line class="wire" x1="210" y1="176" x2="210" y2="190"/><line class="wire" x1="110" y1="190" x2="210" y2="190"/>
+    <line class="wire" x1="160" y1="190" x2="160" y2="200"/>
+    <rect class="nbox" x="130" y="200" width="60" height="26" rx="5"/><text x="160" y="217" text-anchor="middle" font-size="11">N · B1</text>
+    <line class="wire" x1="160" y1="226" x2="160" y2="228"/>
+  </svg>
+  <p class="note"><b>OAI is the mirror image: OR, then AND, then Invert.</b> Now the digits are the sizes of the OR groups: <code>o21ai</code> is one 2 input OR group (<code>A1+A2</code>) AND one 1 input group (<code>B1</code>), inverted, so <code>Y = ((A1+A2)·B1)'</code>. Same single stage CMOS trick as AOI, just with the ANDs and ORs swapped (the pull up and pull down networks are the AOI ones traded). AOI and OAI together are the two largest families in the library, because so many logic functions collapse neatly into one of these compound gates.</p></div>
+
+</div>
+
+<h2>Derived, transmission gate, and tristate cells</h2>
+<div class="grid">
+
+  <div class="card"><h3>and2 · or2 · buf</h3><div class="fn">AND = NAND then INV</div>
+  <svg viewBox="0 0 300 120">
+    <rect class="blk" x="20" y="40" width="90" height="40" rx="6"/><text x="65" y="64" text-anchor="middle" font-size="12">nand2</text>
+    <line class="wire" x1="110" y1="60" x2="150" y2="60"/>
+    <path class="gate" d="M150,44 h20 a16,16 0 0 1 0,32 h-20 z"/><circle class="gate" cx="192" cy="60" r="4"/>
+    <line class="wire" x1="196" y1="60" x2="240" y2="60"/><text x="246" y="64" class="netlbl" font-size="13">Y</text>
+    <text x="6" y="52" class="netlbl" font-size="12">A</text><text x="6" y="76" class="netlbl" font-size="12">B</text>
+    <line class="wire" x1="14" y1="48" x2="20" y2="48"/><line class="wire" x1="14" y1="72" x2="20" y2="72"/>
+  </svg>
+  <p class="note"><b><code>and2</code> is a 2 input AND (output high only when both inputs are high), <code>or2</code> is OR (high when either is high), and <code>buf</code> just copies its input with more drive.</b> Because static CMOS is naturally inverting, each is the inverting gate followed by an inverter: <code>and2</code> = <code>nand2</code> then INV, <code>or2</code> = <code>nor2</code> then INV, <code>buf</code> = two inverters. That extra stage is why they are slightly slower than the raw NAND or NOR.</p></div>
+
+  <div class="card"><h3>xor2 <span class="muted" style="font-weight:400">(transistors)</span></h3><div class="fn">Y = A ⊕ B = A ? B' : B</div>
+  <svg viewBox="0 0 320 195">
+    <!-- B inverter -->
+    <text x="8" y="49" class="netlbl" font-size="12">B</text><line class="wire" x1="20" y1="45" x2="40" y2="45"/>
+    <rect class="blk" x="40" y="32" width="42" height="26" rx="5"/><text x="61" y="49" text-anchor="middle" font-size="9">INV</text>
+    <line class="wire" x1="82" y1="45" x2="150" y2="45"/><text x="94" y="40" font-size="10" fill="var(--muted)">B'</text>
+    <!-- TG passes B' when A=1 -->
+    <text x="150" y="26" font-size="10" fill="var(--muted)">A'</text><line class="wire" x1="154" y1="30" x2="154" y2="36"/>
+    <path class="gate" d="M142,36 L154,45 L142,54 z"/><path class="gate" d="M166,36 L154,45 L166,54 z"/>
+    <line class="wire" x1="154" y1="54" x2="154" y2="60"/><text x="150" y="72" font-size="10" fill="var(--muted)">A</text>
+    <line class="wire" x1="166" y1="45" x2="240" y2="45"/>
+    <!-- TG passes B when A=0 -->
+    <text x="8" y="124" class="netlbl" font-size="12">B</text><line class="wire" x1="20" y1="120" x2="142" y2="120"/>
+    <text x="150" y="103" font-size="10" fill="var(--muted)">A</text><line class="wire" x1="154" y1="107" x2="154" y2="111"/>
+    <path class="gate" d="M142,111 L154,120 L142,129 z"/><path class="gate" d="M166,111 L154,120 L166,129 z"/>
+    <line class="wire" x1="154" y1="129" x2="154" y2="135"/><text x="150" y="147" font-size="10" fill="var(--muted)">A'</text>
+    <line class="wire" x1="166" y1="120" x2="240" y2="120"/>
+    <!-- Y -->
+    <line class="wire" x1="240" y1="45" x2="240" y2="120"/><circle class="dot" cx="240" cy="45" r="3"/><circle class="dot" cx="240" cy="120" r="3"/>
+    <line class="wire" x1="240" y1="82" x2="295" y2="82"/><text x="301" y="86" class="netlbl" font-size="13">Y</text>
+    <text x="60" y="180" font-size="11" fill="var(--muted)">(a second inverter makes A' for the gates)</text>
+  </svg>
+  <p class="note"><b>Exclusive OR: the output is high only when the two inputs differ.</b> The neat part is that XOR is really a 2:1 mux, pass <code>B'</code> when <code>A</code>=1 else pass <code>B</code>, which equals A⊕B. It is two transmission gates (each one NMOS and one PMOS) plus inverters for <code>A'</code> and <code>B'</code>, so it packs more transistors than a plain 2 input gate. <code>xnor2</code> is the same with the output inverted (high when the inputs match).</p></div>
+
+  <div class="card"><h3>mux2 <span class="muted" style="font-weight:400">(transistors)</span></h3><div class="fn">Y = S ? A1 : A0</div>
+  <svg viewBox="0 0 300 190">
+    <!-- TG for A0: on when S=0 -->
+    <text x="10" y="49" class="netlbl" font-size="12">A0</text><line class="wire" x1="28" y1="45" x2="110" y2="45"/>
+    <text x="118" y="26" font-size="10" fill="var(--muted)">S</text><line class="wire" x1="122" y1="30" x2="122" y2="36"/>
+    <path class="gate" d="M110,36 L122,45 L110,54 z"/><path class="gate" d="M134,36 L122,45 L134,54 z"/>
+    <line class="wire" x1="122" y1="54" x2="122" y2="60"/><text x="118" y="72" font-size="10" fill="var(--muted)">S'</text>
+    <line class="wire" x1="134" y1="45" x2="210" y2="45"/>
+    <!-- TG for A1: on when S=1 -->
+    <text x="10" y="124" class="netlbl" font-size="12">A1</text><line class="wire" x1="28" y1="120" x2="110" y2="120"/>
+    <text x="116" y="101" font-size="10" fill="var(--muted)">S'</text><line class="wire" x1="122" y1="105" x2="122" y2="111"/>
+    <path class="gate" d="M110,111 L122,120 L110,129 z"/><path class="gate" d="M134,111 L122,120 L134,129 z"/>
+    <line class="wire" x1="122" y1="129" x2="122" y2="135"/><text x="118" y="147" font-size="10" fill="var(--muted)">S</text>
+    <line class="wire" x1="134" y1="120" x2="210" y2="120"/>
+    <!-- Y -->
+    <line class="wire" x1="210" y1="45" x2="210" y2="120"/><circle class="dot" cx="210" cy="45" r="3"/><circle class="dot" cx="210" cy="120" r="3"/>
+    <line class="wire" x1="210" y1="82" x2="270" y2="82"/><text x="276" y="86" class="netlbl" font-size="13">Y</text>
+    <!-- S inverter -->
+    <text x="10" y="169" class="netlbl" font-size="12">S</text><line class="wire" x1="22" y1="165" x2="40" y2="165"/>
+    <rect class="blk" x="40" y="152" width="44" height="26" rx="5"/><text x="62" y="169" text-anchor="middle" font-size="9">INV</text>
+    <line class="wire" x1="84" y1="165" x2="108" y2="165"/><text x="112" y="169" font-size="10" fill="var(--muted)">S'</text>
+  </svg>
+  <p class="note"><b>A 2:1 multiplexer: it routes one of two inputs to the output, chosen by the select <code>S</code>.</b> When <code>S</code>=0 it passes <code>A0</code>, when <code>S</code>=1 it passes <code>A1</code>. Each path is a transmission gate (one NMOS and one PMOS) that either connects its input straight to <code>Y</code> or shuts off. <code>mux4</code> is a 4:1 version (a small tree of these), and <code>mux2i</code> inverts the output.</p></div>
+
+  <div class="card"><h3>einvn <span class="muted" style="font-weight:400">(tristate, transistors)</span></h3><div class="fn">Y = TE ? A' : Z (high impedance)</div>
+  <svg viewBox="0 0 270 250">
+    <line class="rail-p" x1="30" y1="24" x2="240" y2="24"/><text x="30" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="30" y1="226" x2="240" y2="226"/><text x="30" y="240" font-size="11" fill="var(--vgnd)">VGND</text>
+    <line class="wire" x1="130" y1="24" x2="130" y2="42"/>
+    <rect class="pbox" x="100" y="42" width="60" height="26" rx="5"/><text x="130" y="59" text-anchor="middle" font-size="11">P · TE'</text>
+    <line class="wire" x1="130" y1="68" x2="130" y2="80"/>
+    <rect class="pbox" x="100" y="80" width="60" height="26" rx="5"/><text x="130" y="97" text-anchor="middle" font-size="11">P · A</text>
+    <line class="wire" x1="130" y1="106" x2="130" y2="132"/><circle class="dot" cx="130" cy="119" r="3"/>
+    <line class="wire" x1="130" y1="119" x2="222" y2="119"/><text x="228" y="123" class="netlbl" font-size="13">Y</text>
+    <rect class="nbox" x="100" y="132" width="60" height="26" rx="5"/><text x="130" y="149" text-anchor="middle" font-size="11">N · A</text>
+    <line class="wire" x1="130" y1="158" x2="130" y2="170"/>
+    <rect class="nbox" x="100" y="170" width="60" height="26" rx="5"/><text x="130" y="187" text-anchor="middle" font-size="11">N · TE</text>
+    <line class="wire" x1="130" y1="196" x2="130" y2="226"/>
+    <!-- A to both middle gates -->
+    <line class="wire" x1="100" y1="93" x2="72" y2="93"/><line class="wire" x1="100" y1="145" x2="72" y2="145"/><line class="wire" x1="72" y1="93" x2="72" y2="145"/>
+    <line class="wire" x1="72" y1="119" x2="42" y2="119"/><circle class="dot" cx="72" cy="119" r="3"/><text x="30" y="123" class="netlbl" font-size="12">A</text>
+    <text x="176" y="180" font-size="10" fill="var(--muted)">TE' from an</text>
+    <text x="176" y="194" font-size="10" fill="var(--muted)">inverter on TE</text>
+  </svg>
+  <p class="note"><b>A tristate inverter: an inverter whose output can also be switched off entirely.</b> It is a normal inverter with an extra series enable transistor in each arm. When <code>TE</code> is on it inverts <code>A</code> as usual; when <code>TE</code> is off both arms are cut, so <code>Y</code> floats at high impedance (Z) instead of driving a value. That lets several drivers share one wire (a bus) as long as only one is enabled at a time. <code>einvp</code> is the active high variant, <code>ebufn</code> is the buffer version.</p></div>
+
+</div>
+
+<h2>Sequential: flip flop, scan, enable</h2>
+<div class="grid">
+
+  <div class="card" style="grid-column:1/-1"><h3>dfxtp <span class="muted" style="font-weight:400">(D flip flop)</span></h3><div class="fn">Q captures D on the rising CLK edge</div>
+  <svg viewBox="0 0 640 150">
+    <rect class="blk" x="70" y="45" width="120" height="60" rx="6"/><text x="130" y="79" text-anchor="middle" font-size="12">latch (master)</text>
+    <rect class="blk" x="330" y="45" width="120" height="60" rx="6"/><text x="390" y="79" text-anchor="middle" font-size="12">latch (slave)</text>
+    <line class="wire" x1="20" y1="75" x2="70" y2="75"/><text x="6" y="79" class="netlbl" font-size="12">D</text>
+    <line class="wire" x1="190" y1="75" x2="330" y2="75"/><text x="250" y="68" font-size="11" fill="var(--muted)">internal</text>
+    <line class="wire" x1="450" y1="75" x2="510" y2="75"/><text x="516" y="79" class="netlbl" font-size="13">Q</text>
+    <line class="wire" x1="130" y1="130" x2="130" y2="105"/><line class="wire" x1="390" y1="130" x2="390" y2="105"/>
+    <line class="wire" x1="60" y1="130" x2="460" y2="130"/><circle class="dot" cx="130" cy="130" r="3"/><circle class="dot" cx="390" cy="130" r="3"/>
+    <text x="30" y="134" class="netlbl" font-size="12">CLK</text>
+    <text x="200" y="26" font-size="12" fill="var(--muted)">Two latches on opposite clock phases: the master is transparent while CLK is low and captures D at the edge; the slave then drives Q. Adds up to a positive edge triggered register bit.</text>
+  </svg>
+  <p class="note"><b>A D flip flop: it samples <code>D</code> on the rising clock edge and holds that value on <code>Q</code> until the next edge.</b> This is the basic memory element of synchronous logic, one bit of a register. It is two latches back to back on opposite clock phases, so <code>Q</code> changes only once per clock cycle rather than every time <code>D</code> moves.</p></div>
+
+  <div class="card" style="grid-column:1/-1"><h3>latch <span class="muted" style="font-weight:400">(dlxtp, one latch at transistor level)</span></h3><div class="fn">Q follows D while CLK is high, then holds while CLK is low</div>
+  <svg viewBox="0 0 560 170">
+    <!-- input transmission gate: on when CLK high -->
+    <text x="12" y="79" class="netlbl" font-size="12">D</text><line class="wire" x1="24" y1="75" x2="80" y2="75"/>
+    <text x="74" y="55" font-size="10" fill="var(--muted)">CLK'</text><line class="wire" x1="92" y1="59" x2="92" y2="66"/>
+    <path class="gate" d="M80,66 L92,75 L80,84 z"/><path class="gate" d="M104,66 L92,75 L104,84 z"/>
+    <line class="wire" x1="92" y1="84" x2="92" y2="91"/><text x="80" y="103" font-size="10" fill="var(--muted)">CLK</text>
+    <line class="wire" x1="104" y1="75" x2="150" y2="75"/><circle class="dot" cx="150" cy="75" r="3"/><text x="140" y="66" font-size="10" fill="var(--net)">X</text>
+    <!-- two inverters store the bit -->
+    <rect class="blk" x="150" y="62" width="56" height="26" rx="5"/><text x="178" y="79" text-anchor="middle" font-size="10">INV</text>
+    <line class="wire" x1="206" y1="75" x2="250" y2="75"/><circle class="dot" cx="250" cy="75" r="3"/><text x="236" y="66" font-size="10" fill="var(--net)">Xb</text>
+    <rect class="blk" x="250" y="62" width="56" height="26" rx="5"/><text x="278" y="79" text-anchor="middle" font-size="10">INV</text>
+    <line class="wire" x1="306" y1="75" x2="360" y2="75"/><text x="366" y="79" class="netlbl" font-size="13">Q</text>
+    <!-- feedback transmission gate: on when CLK low -->
+    <line class="wire" x1="250" y1="75" x2="250" y2="128"/><line class="wire" x1="250" y1="128" x2="212" y2="128"/>
+    <text x="188" y="112" font-size="10" fill="var(--muted)">CLK</text><line class="wire" x1="200" y1="116" x2="200" y2="119"/>
+    <path class="gate" d="M212,119 L200,128 L212,137 z"/><path class="gate" d="M188,119 L200,128 L188,137 z"/>
+    <line class="wire" x1="200" y1="137" x2="200" y2="140"/><text x="186" y="152" font-size="10" fill="var(--muted)">CLK'</text>
+    <line class="wire" x1="188" y1="128" x2="150" y2="128"/><line class="wire" x1="150" y1="128" x2="150" y2="75"/>
+    <text x="400" y="58" font-size="11" fill="var(--muted)">CLK high: input gate on,</text>
+    <text x="400" y="74" font-size="11" fill="var(--muted)">feedback off → X follows D.</text>
+    <text x="400" y="98" font-size="11" fill="var(--muted)">CLK low: input gate off,</text>
+    <text x="400" y="114" font-size="11" fill="var(--muted)">feedback on → the two</text>
+    <text x="400" y="130" font-size="11" fill="var(--muted)">inverters latch and hold.</text>
+  </svg>
+  <p class="note"><b>A level sensitive latch: while <code>CLK</code> is high it is transparent (<code>Q</code> follows <code>D</code>), and when <code>CLK</code> goes low it freezes and holds the last value.</b> It is the atom of a flip flop: two inverters store the bit and two transmission gates switch between "follow" and "hold". A flip flop is two of these on opposite clock phases, which is exactly what makes it edge triggered instead of level sensitive.</p></div>
+
+  <div class="card"><h3>s prefix (scan, for test)</h3><div class="fn">sdfxtp: adds SCD, SCE</div>
+  <svg viewBox="0 0 300 130">
+    <path class="blk" d="M60,26 L110,44 L110,86 L60,104 z"/><text x="80" y="69" text-anchor="middle" font-size="11">mux</text>
+    <line class="wire" x1="16" y1="40" x2="60" y2="40"/><text x="2" y="44" class="netlbl" font-size="12">D</text>
+    <line class="wire" x1="16" y1="90" x2="60" y2="90"/><text x="0" y="94" class="netlbl" font-size="11">SCD</text>
+    <line class="wire" x1="85" y1="120" x2="85" y2="95"/><text x="72" y="120" class="netlbl" font-size="11">SCE</text>
+    <line class="wire" x1="110" y1="65" x2="150" y2="65"/>
+    <rect class="blk" x="150" y="45" width="90" height="40" rx="6"/><text x="195" y="69" text-anchor="middle" font-size="11">D-FF</text>
+    <line class="wire" x1="240" y1="65" x2="280" y2="65"/><text x="284" y="69" class="netlbl" font-size="12">Q</text>
+  </svg>
+  <p class="note"><b>Scan is a test feature, not part of the logic.</b> It adds a mux on <code>D</code> so the flop can take a special scan input <code>SCD</code> instead of the normal data, selected by scan enable <code>SCE</code>. In test mode every scan flop links up (each <code>Q</code> feeds the next <code>SCD</code>) into one long shift register, so a tester shifts a known pattern into all the flops, pulses the clock once, then shifts the results out. That makes the chip's internal state controllable and observable, which is how manufacturing test finds faults.</p></div>
+
+  <div class="card"><h3>e prefix (enable)</h3><div class="fn">edfxtp: adds DE</div>
+  <svg viewBox="0 0 300 130">
+    <path class="blk" d="M60,26 L110,44 L110,86 L60,104 z"/><text x="80" y="69" text-anchor="middle" font-size="11">mux</text>
+    <line class="wire" x1="16" y1="40" x2="60" y2="40"/><text x="2" y="44" class="netlbl" font-size="12">D</text>
+    <line class="wire" x1="85" y1="120" x2="85" y2="95"/><text x="74" y="120" class="netlbl" font-size="11">DE</text>
+    <line class="wire" x1="110" y1="65" x2="150" y2="65"/>
+    <rect class="blk" x="150" y="45" width="90" height="40" rx="6"/><text x="195" y="69" text-anchor="middle" font-size="11">D-FF</text>
+    <line class="wire" x1="240" y1="65" x2="280" y2="65"/><text x="284" y="69" class="netlbl" font-size="12">Q</text>
+    <!-- recirculation -->
+    <line class="wire" x1="265" y1="65" x2="265" y2="112"/><line class="wire" x1="265" y1="112" x2="40" y2="112"/><line class="wire" x1="40" y1="112" x2="40" y2="90"/><line class="wire" x1="40" y1="90" x2="60" y2="90"/>
+    <circle class="dot" cx="265" cy="65" r="3"/>
+  </svg>
+  <p class="note"><b>Enable lets the flop update only when you want it to.</b> It adds a data enable <code>DE</code> and a mux: when <code>DE</code>=1 the flop loads new data <code>D</code>; when <code>DE</code>=0 the mux feeds <code>Q</code> back in, so the flop captures its own value again and nothing changes. The clock keeps ticking either way, so this is a safe way to hold a register bit without stopping the clock. Unlike scan, it is a real functional feature (a conditional load).</p></div>
+
+</div>
+
+<h2>Wider basic gates</h2>
+<div class="grid">
+  <div class="card"><h3>nand3</h3><div class="fn">Y = (A·B·C)'</div>
+  <svg viewBox="0 0 320 268">
+    <line class="rail-p" x1="20" y1="24" x2="300" y2="24"/><text x="20" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="20" y1="242" x2="300" y2="242"/><text x="20" y="256" font-size="11" fill="var(--vgnd)">VGND</text>
+    <line class="wire" x1="70" y1="24" x2="70" y2="46"/><line class="wire" x1="160" y1="24" x2="160" y2="46"/><line class="wire" x1="250" y1="24" x2="250" y2="46"/>
+    <rect class="pbox" x="42" y="46" width="56" height="24" rx="5"/><text x="70" y="62" text-anchor="middle" font-size="11">P·A</text>
+    <rect class="pbox" x="132" y="46" width="56" height="24" rx="5"/><text x="160" y="62" text-anchor="middle" font-size="11">P·B</text>
+    <rect class="pbox" x="222" y="46" width="56" height="24" rx="5"/><text x="250" y="62" text-anchor="middle" font-size="11">P·C</text>
+    <line class="wire" x1="70" y1="70" x2="70" y2="90"/><line class="wire" x1="160" y1="70" x2="160" y2="90"/><line class="wire" x1="250" y1="70" x2="250" y2="90"/>
+    <line class="wire" x1="70" y1="90" x2="250" y2="90"/>
+    <line class="wire" x1="160" y1="90" x2="160" y2="112"/><circle class="dot" cx="160" cy="90" r="3"/>
+    <line class="wire" x1="160" y1="101" x2="290" y2="101"/><text x="296" y="105" class="netlbl" font-size="13">Y</text>
+    <rect class="nbox" x="132" y="112" width="56" height="24" rx="5"/><text x="160" y="128" text-anchor="middle" font-size="11">N·A</text>
+    <line class="wire" x1="160" y1="136" x2="160" y2="150"/>
+    <rect class="nbox" x="132" y="150" width="56" height="24" rx="5"/><text x="160" y="166" text-anchor="middle" font-size="11">N·B</text>
+    <line class="wire" x1="160" y1="174" x2="160" y2="188"/>
+    <rect class="nbox" x="132" y="188" width="56" height="24" rx="5"/><text x="160" y="204" text-anchor="middle" font-size="11">N·C</text>
+    <line class="wire" x1="160" y1="212" x2="160" y2="242"/>
+  </svg>
+  <p class="note"><b>A 3 input NAND: output is low only when all three inputs are high.</b> Same shape as <code>nand2</code>, just one more transistor in each network: three NMOS in series (a wider AND) and three PMOS in parallel. <code>nand4</code> adds a fourth of each. Series NMOS gets slower as the stack grows, which is why very wide gates are rare.</p></div>
+
+  <div class="card"><h3>nor3</h3><div class="fn">Y = (A+B+C)'</div>
+  <svg viewBox="0 0 320 268">
+    <line class="rail-p" x1="20" y1="24" x2="300" y2="24"/><text x="20" y="18" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="20" y1="242" x2="300" y2="242"/><text x="20" y="256" font-size="11" fill="var(--vgnd)">VGND</text>
+    <line class="wire" x1="160" y1="24" x2="160" y2="40"/>
+    <rect class="pbox" x="132" y="40" width="56" height="24" rx="5"/><text x="160" y="56" text-anchor="middle" font-size="11">P·A</text>
+    <line class="wire" x1="160" y1="64" x2="160" y2="78"/>
+    <rect class="pbox" x="132" y="78" width="56" height="24" rx="5"/><text x="160" y="94" text-anchor="middle" font-size="11">P·B</text>
+    <line class="wire" x1="160" y1="102" x2="160" y2="116"/>
+    <rect class="pbox" x="132" y="116" width="56" height="24" rx="5"/><text x="160" y="132" text-anchor="middle" font-size="11">P·C</text>
+    <line class="wire" x1="160" y1="140" x2="160" y2="162"/><circle class="dot" cx="160" cy="151" r="3"/>
+    <line class="wire" x1="160" y1="151" x2="290" y2="151"/><text x="296" y="155" class="netlbl" font-size="13">Y</text>
+    <rect class="nbox" x="42" y="162" width="56" height="24" rx="5"/><text x="70" y="178" text-anchor="middle" font-size="11">N·A</text>
+    <rect class="nbox" x="132" y="162" width="56" height="24" rx="5"/><text x="160" y="178" text-anchor="middle" font-size="11">N·B</text>
+    <rect class="nbox" x="222" y="162" width="56" height="24" rx="5"/><text x="250" y="178" text-anchor="middle" font-size="11">N·C</text>
+    <line class="wire" x1="70" y1="162" x2="70" y2="151"/><line class="wire" x1="250" y1="162" x2="250" y2="151"/><line class="wire" x1="70" y1="151" x2="250" y2="151"/>
+    <line class="wire" x1="70" y1="186" x2="70" y2="242"/><line class="wire" x1="160" y1="186" x2="160" y2="242"/><line class="wire" x1="250" y1="186" x2="250" y2="242"/>
+  </svg>
+  <p class="note"><b>A 3 input NOR: output is high only when all three inputs are low.</b> The dual of <code>nand3</code>: three PMOS in series and three NMOS in parallel. Now the slow stack is on the PMOS side, so NOR gates fan wider less gracefully than NAND.</p></div>
+</div>
+
+<h2>More AOI and OAI shapes</h2>
+<p class="muted">Every one is built from its digits exactly like <code>a21oi</code> and <code>o21ai</code> above. The digits are the group sizes; read them and you can draw any of the ~40 shapes.</p>
+<div class="grid">
+  <div class="card"><h3>a22oi</h3><div class="fn">Y = ((A1·A2) + (B1·B2))'</div>
+  <p class="note"><b>AOI22: two 2 input AND groups, OR'd, then inverted.</b> Pull down network: <code>A1·A2</code> (two NMOS in series) in parallel with <code>B1·B2</code> (another two in series). Pull up is the dual: (A1 ∥ A2) in series with (B1 ∥ B2). It is <code>a21oi</code> with the single input <code>B1</code> grown into a second 2 input AND group.</p></div>
+  <div class="card"><h3>a31oi</h3><div class="fn">Y = ((A1·A2·A3) + B1)'</div>
+  <p class="note"><b>AOI31: one 3 input AND group, OR'd with a single input, inverted.</b> Pull down: three NMOS in series (<code>A1·A2·A3</code>) in parallel with one NMOS (<code>B1</code>). Same as <code>a21oi</code> but the first AND group is three wide instead of two.</p></div>
+  <div class="card"><h3>o22ai</h3><div class="fn">Y = ((A1+A2) · (B1+B2))'</div>
+  <p class="note"><b>OAI22: two 2 input OR groups, AND'd, then inverted.</b> The exact mirror of <code>a22oi</code>: pull down is (A1 ∥ A2) in series with (B1 ∥ B2), pull up is the two series pairs in parallel. The rest of the OAI family (<code>o211ai</code>, <code>o32ai</code>, <code>o41ai</code>, …) follows the same digit rule.</p></div>
+</div>
+
+<h2>Arithmetic</h2>
+<div class="grid">
+  <div class="card"><h3>ha <span class="muted" style="font-weight:400">(half adder)</span></h3><div class="fn">SUM = A ⊕ B, COUT = A · B</div>
+  <svg viewBox="0 0 300 130">
+    <text x="10" y="45" class="netlbl" font-size="12">A</text><text x="10" y="97" class="netlbl" font-size="12">B</text>
+    <line class="wire" x1="22" y1="41" x2="60" y2="41"/><line class="wire" x1="22" y1="93" x2="60" y2="93"/>
+    <rect class="blk" x="60" y="24" width="120" height="34" rx="6"/><text x="120" y="45" text-anchor="middle" font-size="12">XOR (A, B)</text>
+    <line class="wire" x1="180" y1="41" x2="228" y2="41"/><text x="234" y="45" class="netlbl" font-size="12">SUM</text>
+    <rect class="blk" x="60" y="76" width="120" height="34" rx="6"/><text x="120" y="97" text-anchor="middle" font-size="12">AND (A, B)</text>
+    <line class="wire" x1="180" y1="93" x2="228" y2="93"/><text x="234" y="97" class="netlbl" font-size="11">COUT</text>
+  </svg>
+  <p class="note"><b>Adds two bits.</b> The sum bit is A XOR B; the carry out is A AND B. The smallest building block of arithmetic.</p></div>
+
+  <div class="card"><h3>fa <span class="muted" style="font-weight:400">(full adder)</span></h3><div class="fn">SUM = A ⊕ B ⊕ Cin, COUT = majority(A, B, Cin)</div>
+  <svg viewBox="0 0 340 130">
+    <text x="8" y="34" class="netlbl" font-size="11">A</text><text x="8" y="50" class="netlbl" font-size="11">B</text><text x="4" y="66" class="netlbl" font-size="11">Cin</text>
+    <line class="wire" x1="26" y1="45" x2="60" y2="45"/><line class="wire" x1="26" y1="93" x2="60" y2="93"/>
+    <rect class="blk" x="60" y="24" width="150" height="34" rx="6"/><text x="135" y="45" text-anchor="middle" font-size="12">XOR (A, B, Cin)</text>
+    <line class="wire" x1="210" y1="41" x2="258" y2="41"/><text x="264" y="45" class="netlbl" font-size="12">SUM</text>
+    <rect class="blk" x="60" y="76" width="150" height="34" rx="6"/><text x="135" y="97" text-anchor="middle" font-size="12">MAJ (A, B, Cin)</text>
+    <line class="wire" x1="210" y1="93" x2="258" y2="93"/><text x="264" y="97" class="netlbl" font-size="11">COUT</text>
+  </svg>
+  <p class="note"><b>Adds three bits (two operands plus a carry in).</b> The sum is a 3 input XOR (high when an odd number of inputs are high); the carry out is the majority (high when two or more inputs are high). Chaining full adders builds any width adder. <code>fah</code>, <code>fahcin</code>, <code>fahcon</code> are the same with the carry path split out for speed.</p></div>
+
+  <div class="card"><h3>maj3</h3><div class="fn">Y = A·B + B·C + A·C</div>
+  <p class="note"><b>Majority: output follows whatever value at least two of the three inputs hold.</b> It is exactly the carry out of a full adder, and is built as a single compound (AOI style) gate rather than separate ANDs and ORs.</p></div>
+</div>
+
+<h2>Tie, clock, delay, and physical cells</h2>
+<div class="grid">
+  <div class="card"><h3>conb <span class="muted" style="font-weight:400">(tie cell)</span></h3><div class="fn">HI = constant 1, LO = constant 0</div>
+  <svg viewBox="0 0 260 150">
+    <line class="rail-p" x1="30" y1="28" x2="230" y2="28"/><text x="30" y="22" font-size="11" fill="var(--vpwr)">VPWR</text>
+    <line class="rail-g" x1="30" y1="122" x2="230" y2="122"/><text x="30" y="136" font-size="11" fill="var(--vgnd)">VGND</text>
+    <rect class="blk" x="70" y="40" width="80" height="28" rx="6"/><text x="110" y="59" text-anchor="middle" font-size="10">drive 1</text>
+    <line class="wire" x1="110" y1="40" x2="110" y2="28"/><line class="wire" x1="150" y1="54" x2="212" y2="54"/><text x="218" y="58" class="netlbl" font-size="12">HI</text>
+    <rect class="blk" x="70" y="82" width="80" height="28" rx="6"/><text x="110" y="101" text-anchor="middle" font-size="10">drive 0</text>
+    <line class="wire" x1="110" y1="110" x2="110" y2="122"/><line class="wire" x1="150" y1="96" x2="212" y2="96"/><text x="218" y="100" class="netlbl" font-size="12">LO</text>
+  </svg>
+  <p class="note"><b>Provides clean, buffered constant 1 and 0 outputs.</b> You never tie an unused input straight to a rail (it hurts test and can stress the gate oxide); you drive it from a tie cell instead.</p></div>
+
+  <div class="card"><h3>clock cells</h3><div class="fn">clkinv, clkbuf, clkinvlp</div>
+  <p class="note"><b>Ordinary inverters and buffers, just sized and shaped for clock nets.</b> Clocks drive huge loads and need balanced rise and fall, so these have tuned transistor ratios. <code>clkinvlp</code> is a low power (low leakage) version for always on clock branches.</p></div>
+
+  <div class="card"><h3>delay cells</h3><div class="fn">dlygate, dlymetal, clkdlybuf</div>
+  <p class="note"><b>Cells whose only job is to add a fixed, known delay.</b> <code>dlygate4sd*</code> and <code>clkdlybuf4s*</code> are short chains of inverters or buffers; <code>dlymetal6s*</code> uses long metal routing. Used to fix hold time and tune clock skew.</p></div>
+
+  <div class="card"><h3>fill, decap, tap, diode</h3><div class="fn">no logic, physical only</div>
+  <p class="note"><b>These have no signal function; they satisfy manufacturing rules.</b> <code>decap</code> is a capacitor across the rails that steadies the supply, <code>tap</code> is a well and substrate contact that pins the body voltage, <code>fill</code> just occupies empty space to keep density legal, and <code>diode</code> protects thin gates from charge damage during fabrication (antenna rule).</p></div>
+</div>
+
+<h2>Low power and level shifting</h2>
+<div class="grid">
+  <div class="card"><h3>lpflow level shifter <span class="muted" style="font-weight:400">(lsbuf_lh)</span></h3><div class="fn">translate a signal from a low supply to a high supply</div>
+  <svg viewBox="0 0 360 230">
+    <line class="rail-p" x1="20" y1="30" x2="150" y2="30"/><text x="20" y="24" font-size="10" fill="var(--vpwr)">VDDL (low)</text>
+    <line class="rail-p" x1="200" y1="30" x2="340" y2="30"/><text x="200" y="24" font-size="10" fill="var(--vpwr)">VDDH (high)</text>
+    <line class="rail-g" x1="20" y1="200" x2="340" y2="200"/><text x="20" y="214" font-size="10" fill="var(--vgnd)">VGND</text>
+    <rect class="blk" x="34" y="92" width="54" height="28" rx="6"/><text x="61" y="110" text-anchor="middle" font-size="10">INV</text>
+    <text x="8" y="110" class="netlbl" font-size="11">A</text><line class="wire" x1="16" y1="106" x2="34" y2="106"/>
+    <line class="wire" x1="88" y1="106" x2="120" y2="106"/><text x="94" y="101" font-size="9" fill="var(--muted)">A, A'</text>
+    <rect class="pbox" x="208" y="48" width="52" height="24" rx="5"/><text x="234" y="64" text-anchor="middle" font-size="10">P1</text>
+    <rect class="pbox" x="280" y="48" width="52" height="24" rx="5"/><text x="306" y="64" text-anchor="middle" font-size="10">P2</text>
+    <line class="wire" x1="234" y1="48" x2="234" y2="30"/><line class="wire" x1="306" y1="48" x2="306" y2="30"/>
+    <text x="236" y="90" font-size="9" fill="var(--muted)">gates cross couple</text>
+    <rect class="nbox" x="208" y="150" width="52" height="24" rx="5"/><text x="234" y="166" text-anchor="middle" font-size="10">N·A</text>
+    <rect class="nbox" x="280" y="150" width="52" height="24" rx="5"/><text x="306" y="166" text-anchor="middle" font-size="10">N·A'</text>
+    <line class="wire" x1="234" y1="174" x2="234" y2="200"/><line class="wire" x1="306" y1="174" x2="306" y2="200"/>
+    <line class="wire" x1="234" y1="72" x2="234" y2="150"/><line class="wire" x1="306" y1="72" x2="306" y2="150"/>
+    <circle class="dot" cx="306" cy="112" r="3"/><line class="wire" x1="306" y1="112" x2="346" y2="112"/><text x="350" y="116" class="netlbl" font-size="12">Z</text>
+    <line class="wire" x1="120" y1="106" x2="120" y2="188"/><line class="wire" x1="120" y1="188" x2="180" y2="188"/><text x="126" y="184" font-size="9" fill="var(--muted)">A, A' drive N·A, N·A'</text>
+  </svg>
+  <p class="note"><b>Two supply domains in one cell.</b> A low voltage input can not fully turn off a high voltage PMOS, so you can not just feed it to a normal inverter. Instead the low side makes <code>A</code> and <code>A'</code>, which pull down one of two cross coupled PMOS on the high supply; the cross coupling then snaps the output rail to rail on <code>VDDH</code>. The <code>*isowell*</code> variants add an isolated well so the domains can be powered down independently.</p></div>
+</div>
+
+<h2>Reading every remaining variant from its name</h2>
+<div class="grid">
+  <div class="card"><h3>and / or (and wider)</h3>
+  <p class="note"><code>and2/3/4</code> and <code>or2/3/4</code> are just the NAND or NOR of the same width followed by an inverter (CMOS is naturally inverting). Wider means more transistors in series and parallel, nothing new structurally.</p></div>
+  <div class="card"><h3>b and bb variants</h3>
+  <p class="note">A <code>b</code> or <code>bb</code> in a gate name (<code>nand2b</code>, <code>or4bb</code>, <code>and4bb</code>) means one or two inputs are inverted first: add a small inverter on that input, then feed the normal gate.</p></div>
+  <div class="card"><h3>xnor, xor3, xnor3</h3>
+  <p class="note"><code>xnor2</code> is <code>xor2</code> with the output inverted (high when inputs match). <code>xor3</code> / <code>xnor3</code> cascade two XOR stages (odd or even parity of three inputs).</p></div>
+  <div class="card"><h3>mux4, mux2i</h3>
+  <p class="note"><code>mux4</code> is a 4:1 mux, a small tree of the <code>mux2</code> transmission gates with two select bits. <code>mux2i</code> is <code>mux2</code> with an inverter on the output.</p></div>
+  <div class="card"><h3>tristate variants</h3>
+  <p class="note"><code>einvp</code> is the tristate inverter with an active high enable, <code>ebufn</code> is the buffer (non inverting) tristate. Same series enable transistor idea as <code>einvn</code>.</p></div>
+  <div class="card"><h3>reset / set / both flops</h3>
+  <p class="note">Suffix letters on a flop add an asynchronous force: <code>r</code> = reset (forces <code>Q</code> to 0), <code>s</code> = set (forces 1), <code>bb</code> = both. Physically it is the plain flip flop plus one transistor that yanks the internal latch to the known state regardless of the clock. Examples: <code>dfrtp</code>, <code>dfstp</code>, <code>dfbbn</code>.</p></div>
+  <div class="card"><h3>latch variants</h3>
+  <p class="note">The <code>dl*</code> latches mirror the flop suffixes: <code>dlrtp</code> adds reset, <code>dlxtn</code> is the negative level version, <code>dlclkp</code> / <code>sdlclkp</code> are clock gating latches. All are the single latch above with the same tweaks.</p></div>
+  <div class="card"><h3>scan + enable combos</h3>
+  <p class="note"><code>sdf*</code> is a scan flop, <code>edf*</code> an enable flop, and <code>sedf*</code> has both. They just stack the scan mux and the enable mux in front of the same flip flop drawn above.</p></div>
+</div>
+
+<p class="muted" style="margin-top:34px;font-size:13px">Every distinct topology is drawn or described above; the sections give the rule to read any of the
+437 cells. See <code>docs/CELL_TAXONOMY.md</code> for the full cell list and
+<code>cells/sky130_hd_all_cells.sp</code> for exact transistor netlists.</p>
+</div>

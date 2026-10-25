@@ -1,0 +1,54 @@
+# cell:    sky130_fd_sc_hd__clkinvlp_2
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/nl/clkinvlp_2.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=meta router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=1 tight=0
+2026-07-09 19:14:25        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-09 19:14:25       standalone     INFO: Placement algorithm: MetaTransistorPlacer
+2026-07-09 19:14:25       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-09 19:14:25       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__clkinvlp_2' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/nl/clkinvlp_2.sp'.
+2026-07-09 19:14:25       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/nl/clkinvlp_2.sp
+2026-07-09 19:14:25       standalone     INFO: Supply net: VPWR
+2026-07-09 19:14:25       standalone     INFO: Ground net: VGND
+2026-07-09 19:14:25       standalone     INFO: Initialize placer
+2026-07-09 19:14:25      meta_placer     INFO: Placement engine: EulerPlacer
+2026-07-09 19:14:25       standalone     INFO: Find next transistor placement
+2026-07-09 19:14:25       standalone     INFO: Cell placement:
+
+  (Y, A, VPWR)   |   (VPWR, A, Y)  
+(VGND, A, NET36) |  (NET36, A, Y)  
+
+2026-07-09 19:14:25    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 19:14:25    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 19:14:25           router     INFO: net-aware access: net='NET36' layer=ndiffusion lifting 9 rail-adjacent contact(s) across 3 columns off the rail.
+2026-07-09 19:14:25           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-09 19:14:25           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-09 19:14:25           router     INFO: Start routing
+2026-07-09 19:14:26       pathfinder     INFO: Start global routing.
+2026-07-09 19:14:26       pathfinder     INFO: Routing iteration 0
+2026-07-09 19:14:26       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-09 19:14:26       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 19:14:26       standalone     INFO: Routing successful.
+2026-07-09 19:14:26       standalone     INFO: Insert well-taps.
+2026-07-09 19:14:26    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 19:14:26    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 19:14:27           router     INFO: Start routing
+2026-07-09 19:14:27       pathfinder     INFO: Start global routing.
+2026-07-09 19:14:27       pathfinder     INFO: Routing iteration 0
+2026-07-09 19:14:27       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-09 19:14:27       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 19:14:27       standalone     INFO: No minimum area violations.
+2026-07-09 19:14:27       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__clkinvlp_2
+2026-07-09 19:14:27       standalone     INFO: LVS result: SUCCESS
+2026-07-09 19:14:27     magic_writer     INFO: Number of layers: 28
+2026-07-09 19:14:27     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__clkinvlp_2
+2026-07-09 19:14:27     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/out/sky130_fd_sc_hd__clkinvlp_2.mag
+2026-07-09 19:14:27       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/out/sky130_fd_sc_hd__clkinvlp_2.lef
+2026-07-09 19:14:27       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/out/sky130_fd_sc_hd__clkinvlp_2.gds
+2026-07-09 19:14:27     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinvlp_2/out/sky130_fd_sc_hd__clkinvlp_2.oas
+2026-07-09 19:14:27       standalone     INFO: Done (Total duration: 0:00:02.472522)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

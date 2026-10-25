@@ -1,0 +1,296 @@
+# Per cell generator recipes (LAYER 3 knobs only, safe to vary per cell).
+#
+# These control lclayout's *algorithms*, not the process or library architecture.
+# DRC rules, row height, site, routing tracks and unit_cell_width are NOT here:
+# they live in tech/sky130_hd_tech.py and are identical for every cell, because
+# cells must abut in rows and expose pins on common tracks. A cell being
+# individually LVS clean is necessary but NOT sufficient, the library must be
+# co legal, which is why the architecture is shared.
+#
+# Columns (whitespace separated):
+#   cell           placer        router     mcon_weight  lift
+#     cell        : short cell name (e.g. inv_1), or 'default'
+#     placer      : meta | flat | hierarchical | smt
+#     router      : dijkstra | steiner
+#     mcon_weight : integer routing cost of the li1<->met1 via (RECIPE_MCON_WEIGHT)
+#     lift        : 0/1 (RECIPE_LIFT_DRAINS), lift parallel signal (drain) diffusion
+#                   contacts off the same polarity power rail so their li1 pad cannot
+#                   abut/merge with the rail. Fixes the NOR/AOI parallel pulldown short.
+#                   DEFAULT 0: only turn on for cells that actually short AND still
+#                   route with it on. Forcing it on compound cells (and3/mux2/...)
+#                   over constrains routing and makes them unroutable, so it is opt-in.
+#                   (column optional; absent => 0)
+#
+# The 'default' row applies to any cell without its own line. A per cell line
+# overrides the default for that cell. Environment variables (PLACER, ROUTER,
+# RECIPE_MCON_WEIGHT, RECIPE_LIFT_DRAINS) passed to run_cell.sh still win.
+#
+# cell           placer         router     mcon_weight  lift
+default          hierarchical   dijkstra   300000       0
+#
+# --- per cell overrides (auto compiled from harness/solve_all.sh recipe search) ---
+# 128 cells that need a non default recipe to build LVS-clean. Generated
+# 2026-07-03. lift=1 => net aware drain lift (NOR/AOI parallel shorts);
+# meta/smt => alternate placer for high drive cells the capped hierarchical
+# placer can't route. Cells not listed build clean on the default row.
+# cell            placer        router    mcon     lift
+a2111o_1         hierarchical  dijkstra  300000   1
+a2111o_2         hierarchical  dijkstra  300000   1
+a2111oi_1        hierarchical  dijkstra  300000   1
+a211o_1          hierarchical  dijkstra  300000   1
+a211o_2          hierarchical  dijkstra  300000   1
+a211o_4          hierarchical  dijkstra  300000   1
+a211oi_1         hierarchical  dijkstra  300000   1
+a211oi_2         meta          dijkstra  300000   1
+a21bo_4          hierarchical  dijkstra  300000   1
+a21o_4           hierarchical  dijkstra  300000   1
+a21oi_2          meta          dijkstra  300000   1
+a21oi_4          meta          dijkstra  300000   1
+a221o_1          meta          dijkstra  300000   1
+a221oi_1         hierarchical  dijkstra  300000   1
+a222oi_1         smt           dijkstra  300000   1
+a22oi_2          meta          dijkstra  300000   1
+a2bb2o_2         hierarchical  dijkstra  300000   1
+a2bb2o_4         hierarchical  dijkstra  300000   1
+a311o_1          hierarchical  dijkstra  300000   1
+a311o_2          hierarchical  dijkstra  300000   1
+a311oi_1         hierarchical  dijkstra  300000   1
+a31oi_2          meta          dijkstra  300000   1
+and2_4           hierarchical  dijkstra  300000   1
+and2b_4          hierarchical  dijkstra  300000   1
+and3_4           hierarchical  dijkstra  300000   1
+and3b_4          hierarchical  dijkstra  300000   1
+and4_4           hierarchical  dijkstra  300000   1
+and4b_4          hierarchical  dijkstra  300000   1
+and4bb_1         meta          dijkstra  300000   0
+and4bb_2         smt           dijkstra  300000   0
+and4bb_4         hierarchical  dijkstra  300000   1
+buf_12           hierarchical  dijkstra  300000   1
+buf_16           hierarchical  dijkstra  300000   1
+buf_4            hierarchical  dijkstra  300000   1
+buf_6            hierarchical  dijkstra  300000   1
+buf_8            hierarchical  dijkstra  300000   1
+bufbuf_16        hierarchical  dijkstra  300000   1
+bufbuf_8         hierarchical  dijkstra  300000   1
+bufinv_16        meta          dijkstra  300000   1
+bufinv_8         hierarchical  dijkstra  300000   1
+dlymetal6s2s_1   hierarchical  dijkstra  300000   1
+ebufn_2          hierarchical  dijkstra  300000   1
+einvn_2          hierarchical  dijkstra  300000   1
+einvp_2          hierarchical  dijkstra  300000   1
+inv_12           hierarchical  dijkstra  300000   1
+inv_16           hierarchical  dijkstra  300000   1
+inv_4            hierarchical  dijkstra  300000   1
+inv_6            hierarchical  dijkstra  300000   1
+inv_8            hierarchical  dijkstra  300000   1
+lpflow_isobufsrc_2 hierarchical  dijkstra  300000   1
+lpflow_isobufsrc_4 hierarchical  dijkstra  300000   1
+lpflow_isobufsrc_8 hierarchical  dijkstra  300000   1
+lpflow_lsbuf_lh_isowell_4 hierarchical  dijkstra  300000   1
+maj3_4           hierarchical  dijkstra  300000   1
+mux2_2           hierarchical  dijkstra  300000   1
+mux2_4           hierarchical  dijkstra  300000   1
+mux2i_1          smt           dijkstra  300000   1
+nand2_2          hierarchical  dijkstra  300000   1
+nand2_4          hierarchical  dijkstra  300000   1
+nand2b_2         hierarchical  dijkstra  300000   1
+nand2b_4         hierarchical  dijkstra  300000   1
+nand3_2          smt           dijkstra  300000   1
+nand3_4          meta          dijkstra  300000   1
+nand3b_2         hierarchical  dijkstra  300000   1
+nand3b_4         hierarchical  dijkstra  300000   1
+nor2_2           hierarchical  dijkstra  300000   1
+nor2_4           hierarchical  dijkstra  300000   1
+nor2_8           hierarchical  dijkstra  300000   1
+nor2b_2          hierarchical  dijkstra  300000   1
+nor2b_4          hierarchical  dijkstra  300000   1
+nor3_1           hierarchical  dijkstra  300000   1
+nor3_2           hierarchical  dijkstra  300000   1
+nor3b_1          hierarchical  dijkstra  300000   1
+nor3b_2          hierarchical  dijkstra  300000   1
+nor3b_4          hierarchical  dijkstra  300000   1
+nor4_1           hierarchical  dijkstra  300000   1
+nor4_2           hierarchical  dijkstra  300000   1
+nor4b_1          hierarchical  dijkstra  300000   1
+nor4bb_1         hierarchical  dijkstra  300000   1
+nor4bb_2         hierarchical  dijkstra  300000   1
+o2111a_1         hierarchical  dijkstra  300000   1
+o2111a_2         hierarchical  dijkstra  300000   1
+o2111ai_1        hierarchical  dijkstra  300000   1
+o211a_1          hierarchical  dijkstra  300000   1
+o211a_2          hierarchical  dijkstra  300000   1
+o211ai_1         hierarchical  dijkstra  300000   1
+o21a_1           hierarchical  dijkstra  300000   1
+o21a_2           hierarchical  dijkstra  300000   1
+o21a_4           hierarchical  dijkstra  300000   1
+o21ai_1          hierarchical  dijkstra  300000   1
+o21ai_2          meta          dijkstra  300000   1
+o21ai_4          hierarchical  dijkstra  300000   1
+o21ba_1          hierarchical  dijkstra  300000   1
+o21ba_2          hierarchical  dijkstra  300000   1
+o21ba_4          hierarchical  dijkstra  300000   1
+o21bai_1         hierarchical  dijkstra  300000   1
+o21bai_2         smt           dijkstra  300000   1
+o221a_1          hierarchical  dijkstra  300000   1
+o221a_2          hierarchical  dijkstra  300000   1
+o221ai_1         meta          dijkstra  300000   1
+o22a_1           hierarchical  dijkstra  300000   1
+o22a_2           hierarchical  dijkstra  300000   1
+o22ai_1          hierarchical  dijkstra  300000   1
+o22ai_4          meta          dijkstra  300000   1
+o2bb2a_4         hierarchical  dijkstra  300000   1
+o2bb2ai_1        hierarchical  dijkstra  300000   1
+o2bb2ai_2        hierarchical  dijkstra  300000   1
+o311a_1          hierarchical  dijkstra  300000   1
+o311a_2          hierarchical  dijkstra  300000   1
+o311ai_1         hierarchical  dijkstra  300000   1
+o31a_1           hierarchical  dijkstra  300000   1
+o31a_2           hierarchical  dijkstra  300000   1
+o31ai_1          hierarchical  dijkstra  300000   1
+o32a_1           hierarchical  dijkstra  300000   1
+o32a_2           hierarchical  dijkstra  300000   1
+o32ai_1          hierarchical  dijkstra  300000   1
+o32ai_2          meta          dijkstra  300000   1
+o41a_1           hierarchical  dijkstra  300000   1
+o41a_2           hierarchical  dijkstra  300000   1
+o41ai_1          hierarchical  dijkstra  300000   1
+or2_4            hierarchical  dijkstra  300000   1
+or2b_4           hierarchical  dijkstra  300000   1
+or3_4            hierarchical  dijkstra  300000   1
+or3b_4           hierarchical  dijkstra  300000   1
+or4_4            hierarchical  dijkstra  300000   1
+or4b_4           hierarchical  dijkstra  300000   1
+or4bb_4          hierarchical  dijkstra  300000   1
+xnor2_1          hierarchical  dijkstra  300000   1
+#
+# --- multi layer escalation wins (met2/met3), added 2026-07-03 -------------
+# Cells that only route with extra metal layers. Columns 6,7 = layers, skipminarea.
+# lift/meta as needed; layers=3 => met2, layers=4 => met3. These deviate from the
+# foundry li1+met1-only stack (see met2 DTCO decision); to be pulled back to 2L
+# later via placement improvement.
+a2111oi_2        meta          dijkstra  300000   1 3 1
+a211oi_4         meta          dijkstra  300000   1 4 1
+a21boi_2         smt           dijkstra  300000   1 3 1
+a21boi_4         hierarchical  dijkstra  300000   1 3 1
+a221o_2          meta          dijkstra  300000   1 3 1
+a22o_4           meta          dijkstra  300000   1 3 1
+a2bb2oi_2        meta          dijkstra  300000   1 3 1
+a311oi_2         meta          dijkstra  300000   1 3 1
+a31o_4           hierarchical  dijkstra  300000   1 3 1
+a32oi_2          meta          dijkstra  300000   1 3 1
+a41o_4           hierarchical  dijkstra  300000   1 3 1
+a41oi_2          meta          dijkstra  300000   1 3 1
+ebufn_4          meta          dijkstra  300000   1 3 1
+einvn_4          meta          dijkstra  300000   1 3 1
+einvn_8          meta          dijkstra  300000   1 3 1
+einvp_4          meta          dijkstra  300000   1 3 1
+einvp_8          meta          dijkstra  300000   1 3 1
+mux2i_2          meta          dijkstra  300000   1 3 1
+nand4_2          meta          dijkstra  300000   1 3 1
+nand4b_2         hierarchical  dijkstra  300000   1 3 1
+nand4bb_2        hierarchical  dijkstra  300000   1 3 1
+nor3_4           meta          dijkstra  300000   1 3 1
+nor4_4           hierarchical  dijkstra  300000   1 3 1
+nor4b_2          hierarchical  dijkstra  300000   1 3 1
+o2111a_4         hierarchical  dijkstra  300000   1 4 1
+o2111ai_2        meta          dijkstra  300000   1 3 1
+o211a_4          meta          dijkstra  300000   1 3 1
+o211ai_2         meta          dijkstra  300000   1 4 1
+o211ai_4         meta          dijkstra  300000   1 3 1
+o221ai_2         meta          dijkstra  300000   1 3 1
+o22ai_2          meta          dijkstra  300000   1 3 1
+o311ai_2         meta          dijkstra  300000   1 3 1
+o31ai_2          meta          dijkstra  300000   1 3 1
+o41a_4           hierarchical  dijkstra  300000   1 3 1
+o41ai_2          meta          dijkstra  300000   1 3 1
+xnor2_2          meta          dijkstra  300000   1 3 1
+xor2_2           meta          dijkstra  300000   1 3 1
+#
+# --- device less physical cells (fill/tap/decap-spacer/diode), added 2026-07-03 ---
+# 0 transistor cells: placer emits an empty cell (rails+wells), LVS matches the
+# deviceless reference. Need skipminarea=1 (col 7). conb_1 excluded (has real ties).
+diode_2          hierarchical  dijkstra  300000   0 2 1
+fill_1           hierarchical  dijkstra  300000   0 2 1
+fill_2           hierarchical  dijkstra  300000   0 2 1
+fill_4           hierarchical  dijkstra  300000   0 2 1
+fill_8           hierarchical  dijkstra  300000   0 2 1
+macro_sparecell  hierarchical  dijkstra  300000   0 2 1
+tap_1            hierarchical  dijkstra  300000   0 2 1
+tap_2            hierarchical  dijkstra  300000   0 2 1
+tapvgnd2_1       hierarchical  dijkstra  300000   0 2 1
+tapvgnd_1        hierarchical  dijkstra  300000   0 2 1
+tapvpwrvgnd_1    hierarchical  dijkstra  300000   0 2 1
+#
+# --- longer channel cells recovered by netlist L fix (2026-07-04) ---
+# clkinvlp/clkdlybuf/dlygate use L>0.15um; transistor.py now honors netlist L.
+clkinvlp_2       meta          dijkstra  300000   1 3 1
+clkdlybuf4s18_1  meta          dijkstra  300000   1 3 1
+clkdlybuf4s25_1  meta          dijkstra  300000   1 3 1
+dlygate4sd2_1    meta          dijkstra  300000   1 3 1
+clkdlybuf4s18_2  meta          dijkstra  300000   1 3 1
+clkdlybuf4s25_2  meta          dijkstra  300000   1 3 1
+#
+# --- tight lift + double height recoveries (2026-07-04); cols 9=height 10=tight ---
+a2111oi_0        meta          dijkstra  300000   1 2 0 0 1 1
+a221oi_2         meta          dijkstra  300000   1 2 0 0 1 1
+clkbuf_4         meta          dijkstra  300000   1 2 0 0 1 1
+clkbuf_8         meta          dijkstra  300000   1 2 0 0 1 1
+clkinv_4         meta          dijkstra  300000   1 2 0 0 1 1
+clkinv_8         hierarchical  dijkstra  300000   1 3 1 0 1 1
+ha_1             meta          dijkstra  300000   1 2 0 0 1 1
+lpflow_clkbufkapwr_4 meta          dijkstra  300000   1 2 0 0 1 1
+lpflow_clkbufkapwr_8 meta          dijkstra  300000   1 2 0 0 1 1
+lpflow_clkinvkapwr_4 meta          dijkstra  300000   1 2 0 0 1 1
+lpflow_clkinvkapwr_8 hierarchical  dijkstra  300000   1 3 1 0 1 1
+maj3_1           meta          dijkstra  300000   1 2 0 0 1 1
+maj3_2           meta          dijkstra  300000   1 2 0 0 1 1
+o21ai_0          meta          dijkstra  300000   1 2 0 0 1 1
+o2bb2a_1         meta          dijkstra  300000   1 2 0 0 1 1
+o2bb2a_2         meta          dijkstra  300000   1 2 0 0 1 1
+o311ai_0         meta          dijkstra  300000   1 2 0 0 1 1
+or3_1            meta          dijkstra  300000   1 2 0 0 1 1
+or3_2            meta          dijkstra  300000   1 2 0 0 1 1
+or3b_1           meta          dijkstra  300000   1 2 0 0 1 1
+or4_1            meta          dijkstra  300000   1 2 0 0 1 1
+or3b_2           meta          dijkstra  300000   1 2 0 0 1 1
+or4_2            meta          dijkstra  300000   1 2 0 0 1 1
+or4b_1           meta          dijkstra  300000   1 2 0 0 1 1
+or4b_2           meta          dijkstra  300000   1 2 0 0 1 1
+or4bb_1          meta          dijkstra  300000   1 2 0 0 1 1
+or4bb_2          meta          dijkstra  300000   1 2 0 0 1 1
+# --- drive 4 AOI + complex recoveries via tight lift (2026-07-04 dh harvest) ---
+a22oi_4          meta          dijkstra  300000   1 3 1 0 1 1
+a2111o_4         meta          dijkstra  300000   1 3 1 0 1 1
+a311o_4          meta          dijkstra  300000   1 3 1 0 1 1
+a31oi_4          meta          dijkstra  300000   1 3 1 0 1 1
+a32o_4           meta          dijkstra  300000   1 3 1 0 1 1
+# --- hard combinational recoveries (2026-07-04 harvest3): drive 4 AOI/adder/mux/xor/high-drive ---
+a221o_4          meta          dijkstra  300000   1 3 1 0 1 1
+clkbuf_16        meta          dijkstra  300000   1 3 1 0 1 1
+a2111oi_4        meta          dijkstra  300000   1 3 1 0 1 1
+a311oi_4         meta          dijkstra  300000   1 3 1 0 1 1
+a2bb2oi_4        meta          dijkstra  300000   1 3 1 0 1 1
+fa_1             meta          dijkstra  300000   1 3 1 0 1 1
+ebufn_8          meta          dijkstra  300000   1 3 1 0 1 1
+ha_4             meta          dijkstra  300000   1 3 1 0 1 1
+clkinv_16        hierarchical  dijkstra  300000   1 3 1 0 2 1
+lpflow_clkbufkapwr_16 meta          dijkstra  300000   1 3 1 0 1 1
+mux4_1           meta          dijkstra  300000   1 3 1 0 1 1
+nand2_8          meta          dijkstra  300000   1 3 1 0 1 1
+ha_2             hierarchical  dijkstra  300000   1 3 1 0 2 1
+nand4_4          meta          dijkstra  300000   1 3 1 0 1 1
+nor4b_4          meta          dijkstra  300000   1 3 1 0 1 1
+nor4bb_4         meta          dijkstra  300000   1 3 1 0 1 1
+o221a_4          meta          dijkstra  300000   1 3 1 0 1 1
+o2111ai_4        meta          dijkstra  300000   1 3 1 0 1 1
+o311a_4          meta          dijkstra  300000   1 3 1 0 1 1
+o22a_4           meta          dijkstra  300000   1 3 1 0 1 1
+o31a_4           meta          dijkstra  300000   1 3 1 0 1 1
+o2bb2ai_4        meta          dijkstra  300000   1 3 1 0 1 1
+o31ai_4          meta          dijkstra  300000   1 3 1 0 1 1
+o311ai_4         meta          dijkstra  300000   1 3 1 0 1 1
+o21bai_4         meta          dijkstra  300000   1 3 1 0 2 1
+o32a_4           meta          dijkstra  300000   1 3 1 0 1 1
+o41ai_4          meta          dijkstra  300000   1 3 1 0 1 1
+xnor2_4          meta          dijkstra  300000   1 3 1 0 1 1
+xor2_4           meta          dijkstra  300000   1 3 1 0 1 1

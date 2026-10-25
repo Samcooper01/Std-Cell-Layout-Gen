@@ -1,0 +1,70 @@
+# cell:    sky130_fd_sc_hd__nor4bb_4
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/nor4bb_4/nl/nor4bb_4.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=meta router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=1 tight=1
+2026-07-10 10:53:21        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:53:21       standalone     INFO: Placement algorithm: MetaTransistorPlacer
+2026-07-10 10:53:21       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:53:21       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__nor4bb_4' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/nor4bb_4/nl/nor4bb_4.sp'.
+2026-07-10 10:53:21       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/nor4bb_4/nl/nor4bb_4.sp
+2026-07-10 10:53:21       standalone     INFO: Supply net: VPWR
+2026-07-10 10:53:21       standalone     INFO: Ground net: VGND
+2026-07-10 10:53:21       standalone     INFO: Initialize placer
+2026-07-10 10:53:21      meta_placer     INFO: Placement engine: EulerPlacer
+2026-07-10 10:53:21       standalone     INFO: Find next transistor placement
+2026-07-10 10:53:21       standalone     INFO: Cell placement:
+
+ (C, C_N, VPWR)  | (VPWR, A, SNDPA) | (SNDPA, A, VPWR) | (VPWR, A, SNDPA) | (SNDPA, B, SNDPB) | (SNDPB, B, SNDPA) | (SNDPA, B, SNDPB) | (SNDPB, C, SNDPC) |  (SNDPC, D, Y)   |  (Y, D, SNDPC)   | (SNDPC, C, SNDPB) | (SNDPB, C, SNDPC) |  (SNDPC, D, Y)   |  (Y, D, SNDPC)   | (SNDPC, C, SNDPB) | (SNDPB, B, SNDPA) | (SNDPA, A, VPWR) |  (VPWR, D_N, D) 
+ (C, C_N, VGND)  |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, B, Y)   |   (Y, B, VGND)   |   (VGND, B, Y)   |   (Y, B, VGND)   |   (VGND, C, Y)   |   (Y, C, VGND)   |   (VGND, C, Y)   |   (Y, D, VGND)   |   (VGND, D, Y)   |   (Y, C, VGND)   |   (VGND, D, Y)   |   (Y, D, VGND)   |  (VGND, D_N, D) 
+
+2026-07-10 10:53:21    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:53:21    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:53:25           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 8 rail-adjacent contact(s) across 8 columns off the rail.
+2026-07-10 10:53:25           router     INFO: net-aware access: net='SNDPC' layer=pdiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:53:25           router     INFO: net-aware access: net='SNDPB' layer=pdiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:53:25           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:53:25           router     INFO: net-aware access: net='SNDPA' layer=pdiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:53:25           router     INFO: Start routing
+2026-07-10 10:53:27       pathfinder     INFO: Start global routing.
+2026-07-10 10:53:31       pathfinder     INFO: Routing iteration 0
+2026-07-10 10:53:44       pathfinder     INFO: Routing iteration 1
+2026-07-10 10:53:52       pathfinder     INFO: Routing iteration 2
+2026-07-10 10:54:01       pathfinder     INFO: Routing iteration 3
+2026-07-10 10:54:10       pathfinder     INFO: Routing iteration 4
+2026-07-10 10:54:18       pathfinder     INFO: Routing iteration 5
+2026-07-10 10:54:26       pathfinder     INFO: Routing iteration 6
+2026-07-10 10:54:34       pathfinder     INFO: Routing iteration 7
+2026-07-10 10:54:41       pathfinder     INFO: Routing iteration 8
+2026-07-10 10:54:49       pathfinder     INFO: Routing iteration 9
+2026-07-10 10:54:57       pathfinder     INFO: Routing iteration 10
+2026-07-10 10:55:05       pathfinder     INFO: Routing iteration 11
+2026-07-10 10:55:12       pathfinder     INFO: Routing iteration 12
+2026-07-10 10:55:20       pathfinder     INFO: Routing iteration 13
+2026-07-10 10:55:27       pathfinder     INFO: Routing iteration 14
+2026-07-10 10:55:35       pathfinder     INFO: Routing iteration 15
+2026-07-10 10:55:42       pathfinder     INFO: Routing iteration 16
+2026-07-10 10:55:50       pathfinder     INFO: Routing iteration 17
+2026-07-10 10:55:58       pathfinder     INFO: Routing iteration 18
+2026-07-10 10:56:06       pathfinder     INFO: Routing iteration 19
+2026-07-10 10:56:14       pathfinder     INFO: Routing iteration 20
+2026-07-10 10:56:22       pathfinder     INFO: Routing iteration 21
+2026-07-10 10:56:30       pathfinder     INFO: Routing iteration 22
+2026-07-10 10:56:37       pathfinder     INFO: Routing iteration 23
+2026-07-10 10:56:45       pathfinder     INFO: Routing iteration 24
+2026-07-10 10:56:53       pathfinder     INFO: Routing iteration 25
+2026-07-10 10:57:00       pathfinder     INFO: Routing iteration 26
+2026-07-10 10:57:06       pathfinder     INFO: Routing iteration 27
+2026-07-10 10:57:12       pathfinder     INFO: Routing iteration 28
+2026-07-10 10:57:18       pathfinder     INFO: Routing iteration 29
+2026-07-10 10:57:24       pathfinder     INFO: Routing iteration 30
+2026-07-10 10:57:30       pathfinder     INFO: Routing iteration 31
+2026-07-10 10:57:36       pathfinder     INFO: Routing iteration 32
+2026-07-10 10:57:42       pathfinder     INFO: Routing iteration 33
+2026-07-10 10:57:48       pathfinder     INFO: Routing iteration 34
+2026-07-10 10:57:54       pathfinder     INFO: Routing iteration 35
+2026-07-10 10:58:00       pathfinder     INFO: Global routing done in 35 iterations
+2026-07-10 10:58:00       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 10:58:05       standalone     INFO: Routing successful.
+2026-07-10 10:58:05       standalone     INFO: Insert well-taps.
+2026-07-10 10:58:05    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:58:05    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.

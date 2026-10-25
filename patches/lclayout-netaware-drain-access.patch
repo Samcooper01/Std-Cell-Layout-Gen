@@ -1,0 +1,405 @@
+diff --git a/src/lclayout/layout/layers.py b/src/lclayout/layout/layers.py
+index 6c513a6..4243248 100644
+--- a/src/lclayout/layout/layers.py
++++ b/src/lclayout/layout/layers.py
+@@ -148,6 +148,14 @@ l_via1 = 'via1'
+ l_metal2 = 'metal2'
+ l_metal2_label = 'metal2_label'
+ l_metal2_pin = 'metal2_pin'
++l_via2 = 'via2'
++l_metal3 = 'metal3'
++l_metal3_label = 'metal3_label'
++l_metal3_pin = 'metal3_pin'
++l_via3 = 'via3'
++l_metal4 = 'metal4'
++l_metal4_label = 'metal4_label'
++l_metal4_pin = 'metal4_pin'
+ l_abutment_box = 'abutment_box'
+ l_border_horizontal = 'neighbour_cells_horizontal'
+ "Helper layer to allow spacing rules to left and right borders."
+@@ -172,6 +180,14 @@ layermap = {
+     l_metal2: (10, 0),
+     l_metal2_label: (10, 1),
+     l_metal2_pin: (10, 2),
++    l_via2: (11, 0),
++    l_metal3: (12, 0),
++    l_metal3_label: (12, 1),
++    l_metal3_pin: (12, 2),
++    l_via3: (13, 0),
++    l_metal4: (14, 0),
++    l_metal4_label: (14, 1),
++    l_metal4_pin: (14, 2),
+     l_abutment_box: (100, 0),
+     l_border_horizontal: (101, 0),
+     l_border_vertical: (101, 1),
+@@ -188,3 +204,5 @@ via_layers.add_edge(l_pplus, l_metal1, layer=l_pdiff_contact)
+ 
+ via_layers.add_edge(l_poly, l_metal1, layer=l_poly_contact)
+ via_layers.add_edge(l_metal1, l_metal2, layer=l_via1)
++via_layers.add_edge(l_metal2, l_metal3, layer=l_via2)
++via_layers.add_edge(l_metal3, l_metal4, layer=l_via3)
+diff --git a/src/lclayout/layout/transistor.py b/src/lclayout/layout/transistor.py
+index ac26406..783fc21 100644
+--- a/src/lclayout/layout/transistor.py
++++ b/src/lclayout/layout/transistor.py
+@@ -115,7 +115,16 @@ class DefaultTransistorLayout(TransistorLayout):
+             # Default to gate-length from SPICE netlist.
+             logger.debug("Default to gate length from SPICE netlist: {} um".format(abstract_transistor.channel_length))
+             gate_length = int(abstract_transistor.channel_length / tech.db_unit) # Convert from microns to data-base units.
+-            
++
++        # The tech gate_length is only a default/minimum. A device that explicitly
++        # asks for a LONGER channel (decaps use L=1.05um; low-power/delay cells like
++        # clkinvlp/clkdlybuf/dlygate use L=0.25um+) must get it, or the drawn
++        # L=0.15um mismatches the reference at LVS. For standard logic (netlist L ==
++        # tech default) this is a no-op.
++        _netlist_gate_length = int(round(abstract_transistor.channel_length / tech.db_unit))
++        if _netlist_gate_length > gate_length:
++            gate_length = _netlist_gate_length
++
+         logger.debug("gate length: {}".format(gate_length))
+             
+         # Diffusion layer.
+diff --git a/src/lclayout/lvs/lvs.py b/src/lclayout/lvs/lvs.py
+index e703daf..9950fc1 100644
+--- a/src/lclayout/lvs/lvs.py
++++ b/src/lclayout/lvs/lvs.py
+@@ -94,6 +94,14 @@ def extract_l2n(layout: db.Layout, top_cell: db.Cell) -> db.LayoutToNetlist:
+     rvia1 = make_layer(l_via1)
+     rmetal2 = make_layer(l_metal2)
+     rmetal2_lbl = make_layer(l_metal2_label)
++    # Extra routing layers (met2/met3) for the multi-layer escalation. Empty when
++    # a cell doesn't use them (2-layer cells), so this is a no-op for those.
++    rvia2 = make_layer(l_via2)
++    rmetal3 = make_layer(l_metal3)
++    rmetal3_lbl = make_layer(l_metal3_label)
++    rvia3 = make_layer(l_via3)
++    rmetal4 = make_layer(l_metal4)
++    rmetal4_lbl = make_layer(l_metal4_label)
+ 
+     rdiff_cont = rndiff_cont + rpdiff_cont
+     rpactive = rpdiff & rnwell
+@@ -139,7 +147,10 @@ def extract_l2n(layout: db.Layout, top_cell: db.Cell) -> db.LayoutToNetlist:
+     l2n.connect(rpoly_cont)
+     l2n.connect(rmetal1)
+     l2n.connect(rmetal2)
+-    # TODO: what if more than 2 metal layers?
++    l2n.connect(rvia2)
++    l2n.connect(rmetal3)
++    l2n.connect(rvia3)
++    l2n.connect(rmetal4)
+ 
+     # Inter-layer
+     l2n.connect(rpsd, rdiff_cont)
+@@ -152,9 +163,15 @@ def extract_l2n(layout: db.Layout, top_cell: db.Cell) -> db.LayoutToNetlist:
+     l2n.connect(rdiff_cont, rmetal1)
+     l2n.connect(rmetal1, rvia1)
+     l2n.connect(rvia1, rmetal2)
++    l2n.connect(rmetal2, rvia2)   # met1 <-> via <-> met2
++    l2n.connect(rvia2, rmetal3)
++    l2n.connect(rmetal3, rvia3)   # met2 <-> via2 <-> met3
++    l2n.connect(rvia3, rmetal4)
+     # l2n.connect(rpoly, rpoly_lbl)  # attaches labels
+     l2n.connect(rmetal1, rmetal1_lbl)  # attaches labels
+     l2n.connect(rmetal2, rmetal2_lbl)  # attaches labels
++    l2n.connect(rmetal3, rmetal3_lbl)  # attaches labels
++    l2n.connect(rmetal4, rmetal4_lbl)  # attaches labels
+ 
+     # l2n.connect_global(rnwell, 'NWELL') # VDD
+     # l2n.connect_global(rpwell, 'PWELL') # GND
+@@ -184,7 +201,9 @@ def extract_netlist(layout: db.Layout, top_cell: db.Cell) -> db.Netlist:
+     netlist.purge_nets()
+     # netlist.simplify()
+ 
+-    assert netlist.top_circuit_count() == 1, "A well formed netlist should have exactly one top circuit."
++    # A device-less cell (fill/tap/decap spacer) purges to 0 top circuits -- that
++    # is fine, it just has nothing to verify. Only a normal cell must have exactly 1.
++    assert netlist.top_circuit_count() <= 1, "A well formed netlist should have at most one top circuit."
+ 
+     return netlist.dup()
+ 
+@@ -199,6 +218,21 @@ def compare_netlist(extracted: db.Netlist, reference: db.Netlist) -> bool:
+     :param reference:
+     :return: Returns True iff the two netlists are equivalent.
+     """
++    # Device-less cells (fill / tap / decap spacers): if the reference contains no
++    # devices, any extraction with no devices is trivially equivalent -- there is
++    # nothing to match. This also sidesteps the "exactly one top circuit" assumption
++    # (an empty layout purges to zero circuits).
++    def _deviceless(nl):
++        if nl.top_circuit_count() == 0:
++            return True
++        for c in nl.each_circuit():
++            for _ in c.each_device():
++                return False
++        return True
++    if _deviceless(reference) and _deviceless(extracted):
++        logger.info("Device-less cell: extraction has no devices, matches deviceless reference.")
++        return True
++
+     assert extracted.top_circuit_count() == 1, "Expected to get exactly one top level circuit."
+     assert reference.top_circuit_count() == 1, "Expected to get exactly one top level circuit."
+ 
+diff --git a/src/lclayout/place/euler_placer.py b/src/lclayout/place/euler_placer.py
+index c05d4bd..f3fb072 100644
+--- a/src/lclayout/place/euler_placer.py
++++ b/src/lclayout/place/euler_placer.py
+@@ -18,6 +18,55 @@ import networkx as nx
+ from . import eulertours
+ from . import partition
+ 
++import os
++# --- Placement search caps (env-tunable) -----------------------------------
++# HierarchicalPlacer.place() enumerates sub-cell permutations (P! x N!) plus an
++# intra-sub-cell product; this is O(n!) in the sub-cell count and HANGS on
++# high-drive cells (drive-2/4/8 have many parallel devices -> many sub-cells),
++# which is the dominant FAIL:timeout cause across the library. These caps bound
++# the search. permutations() yields the identity (natural netlist) order FIRST,
++# so the un-permuted placement -- usually a sane one -- is always evaluated;
++# capping only drops far-out permutations. Result stays LVS-correct; only
++# placement/wiring quality can degrade. Generous defaults; lower per-cell via env
++# for pathological cells, and the caps are inert on small cells (n! < cap).
++_PLACE_PERM_CAP  = int(os.environ.get("RECIPE_PLACE_PERM_CAP",  "5040"))   # per-row perms (<=7!)
++_PLACE_COMBO_CAP = int(os.environ.get("RECIPE_PLACE_COMBO_CAP", "20000"))  # outer P! x N! product
++_PLACE_INNER_CAP = int(os.environ.get("RECIPE_PLACE_INNER_CAP", "5000"))   # intra-sub-cell product
++# Cap on Euler tours enumerated per diffusion graph. find_all_euler_tours is
++# exponential; unbounded it hangs on high-drive cells (drive-4 = ~32 devices).
++# meta_placer already caps at 200; _find_optimal_single_row_placements did NOT.
++_PLACE_EULER_TOUR_CAP = int(os.environ.get("RECIPE_PLACE_EULER_TOUR_CAP", "200"))
++# RECIPE_GROUP_FINGERS (0/1): collapse identical parallel transistors (the fingers
++# that run_cell.sh EXPAND makes from m=N) into ONE representative edge before the
++# Euler-tour search, then expand them back as adjacent fingers. Without this, K
++# identical fingers create K! equivalent Euler tours that blow the tour budget on
++# junk permutations, so the (already gate-alignment-aware) search never reaches a
++# routable ordering -> high-drive/complex cells don't route. Default 0 (unchanged).
++_GROUP_FINGERS = bool(int(os.environ.get("RECIPE_GROUP_FINGERS", "0")))
++
++
++def _collapse_fingers(graph):
++    """Collapse identical parallel transistors (fingers) into a single representative
++    edge. Returns (collapsed_multigraph, {representative_transistor: [all fingers]}).
++    Two transistors are interchangeable fingers iff they connect the same node pair
++    and have the same gate net, width and length."""
++    import networkx as _nx
++    collapsed = _nx.MultiGraph()
++    groups = {}
++    seen = {}  # (frozenset{u,v}, gate, w, l) -> representative transistor
++    for u, v, t in graph.edges(keys=True):
++        key = None
++        if isinstance(t, Transistor):
++            key = (frozenset((u, v)), t.gate_net, t.channel_width, t.channel_length)
++        if key is not None and key in seen:
++            groups[seen[key]].append(t)
++        else:
++            collapsed.add_edge(u, v, t)
++            if key is not None:
++                seen[key] = t
++                groups[t] = [t]
++    return collapsed, groups
++
+ import logging
+ 
+ logger = logging.getLogger(__name__)
+@@ -120,6 +169,11 @@ def _io_ordering_cost(nets: Iterable[Tuple[Hashable, float]], input_nets: Set[An
+ 
+     nets = list(nets)
+ 
++    # All-power-net cells (decaps: every terminal on VPWR/VGND) have no signal
++    # nets to order -> nothing to cost. Guard the empty min()/max().
++    if not nets:
++        return 0
++
+     cost = 0
+     min_x = min((pos for _, pos in nets))
+     max_x = max((pos for _, pos in nets))
+@@ -230,6 +284,14 @@ class HierarchicalPlacer(TransistorPlacer):
+         :return:
+         """
+ 
++        transistors = list(transistors)
++        if not transistors:
++            # Device-less cell (fill / tap / decap spacers): nothing to place.
++            # Emit an empty cell; the flow still draws the rails/wells, and LVS
++            # matches the deviceless reference netlist.
++            yield _assemble_cell([], [])
++            return
++
+         # Split into nmos / pmos
+         nmos = [t for t in transistors if t.channel_type == ChannelType.NMOS]
+         pmos = [t for t in transistors if t.channel_type == ChannelType.PMOS]
+@@ -297,8 +359,10 @@ class HierarchicalPlacer(TransistorPlacer):
+         p_subcells = [subcell_from_placements(pl, 0) for pl in pmos_placements]
+         n_subcells = [subcell_from_placements(pl, 1) for pl in nmos_placements]
+ 
+-        p_permuations = list(permutations(p_subcells))
+-        n_permuations = list(permutations(n_subcells))
++        # Cap the permutation lists (identity order comes first). Uncapped this is
++        # P!/N! and hangs on high-drive cells. See _PLACE_*_CAP notes at top of file.
++        p_permuations = list(islice(permutations(p_subcells), _PLACE_PERM_CAP))
++        n_permuations = list(islice(permutations(n_subcells), _PLACE_PERM_CAP))
+ 
+         def get_subcell_net_position(subcells: Iterable[SubCell]) -> List[Tuple[Any, float]]:
+             """
+@@ -327,7 +391,7 @@ class HierarchicalPlacer(TransistorPlacer):
+         input_nets = net_util.get_cell_inputs(transistors)
+         output_nets = set()  # TODO: extract output nets.
+ 
+-        for ps, ns in subcell_placements:
++        for ps, ns in islice(subcell_placements, _PLACE_COMBO_CAP):
+             ppos = get_subcell_net_position(ps)
+             npos = get_subcell_net_position(ns)
+ 
+@@ -420,7 +484,7 @@ class HierarchicalPlacer(TransistorPlacer):
+                 best_placements = []
+                 # Iterate over all internal placements
+ 
+-                for placements in product(*(s.id for s in subcells)):
++                for placements in islice(product(*(s.id for s in subcells)), _PLACE_INNER_CAP):
+                     # Get net positions for this placement
+                     assert len(subcells) == len(placements)
+                     net_positions = []
+@@ -508,10 +572,17 @@ def _find_optimal_single_row_placements(transistor_graph: nx.MultiGraph) -> List
+     :return: List[List[Transistor]]
+     """
+ 
++    # Finger grouping: collapse identical parallel transistors so the Euler-tour
++    # search explores real orderings instead of exponentially many finger perms.
++    if _GROUP_FINGERS:
++        transistor_graph, _finger_groups = _collapse_fingers(transistor_graph)
++    else:
++        _finger_groups = {}
++
+     even_degree_graphs = eulertours.construct_even_degree_graphs(transistor_graph)
+     logger.debug('Number of even-degree graphs: %d', len(even_degree_graphs))
+ 
+-    all_eulertours = list(chain(*(eulertours.find_all_euler_tours(g) for g in even_degree_graphs)))
++    all_eulertours = list(chain(*(eulertours.find_all_euler_tours(g, limit=_PLACE_EULER_TOUR_CAP) for g in even_degree_graphs)))
+ 
+     logger.debug('Number of eulertours: %d', len(all_eulertours))
+     all_eulertours = list(set((tuple(tour) for tour in all_eulertours)))
+@@ -581,7 +652,16 @@ def _find_optimal_single_row_placements(transistor_graph: nx.MultiGraph) -> List
+ 
+                 assert transistor.source_net == l and transistor.drain_net == r
+ 
+-            ts.append(transistor)
++            # Expand a collapsed finger group back into K adjacent fingers. Alternate
++            # orientation (l->r, r->l, ...) so consecutive fingers share diffusion;
++            # the layout stage inserts a gap if the block boundary nets don't match.
++            grp = _finger_groups.get(t) if transistor is not None else None
++            if grp is not None and len(grp) > 1:
++                for k, ft in enumerate(grp):
++                    src = l if (k % 2 == 0) else r
++                    ts.append(ft if ft.source_net == src else ft.flipped())
++            else:
++                ts.append(transistor)
+         return ts
+ 
+     assert len(all_eulertours) > 0
+diff --git a/src/lclayout/router.py b/src/lclayout/router.py
+index 1c3349f..980d4bd 100644
+--- a/src/lclayout/router.py
++++ b/src/lclayout/router.py
+@@ -6,6 +6,7 @@ from .graphrouter.graphrouter import GraphRouter, GraphRoutingProblem
+ from .routing_graph import *
+ from . import tech_util
+ from .lvs import lvs
++from lccommon.net_util import is_power_net
+ import networkx as nx
+ import numpy
+ import klayout.db as db
+@@ -424,6 +425,95 @@ class DefaultRouter():
+         # Embed transistor terminal nodes in to routing graph.
+         terminals_by_net.extend(embed_transistor_terminal_nodes(graph, transistor_layouts, tech))
+ 
++        # --- Option A: net-aware diffusion terminal access (sky130-port fix) ---
++        # A diffusion source/drain terminal exposes routing nodes at BOTH the
++        # rail-adjacent edge and the far edge of the active area (see the active-
++        # border access points added to xs/ys above). The routing graph is
++        # net-agnostic, so for a DRAIN/signal net the router may contact at the
++        # rail-adjacent edge; the resulting li1 pad then abuts the power rail
++        # (same layer, shared edge) and the two nets merge -> short. This is the
++        # nor3/nor4/or3/xnor2/o21ai/o22ai/a211oi... class (parallel pulldown/pullup
++        # puts several signal drains flush against the rail). A SOURCE terminal
++        # legitimately shares the rail net and MUST stay flush against the rail.
++        # Fix: for a diffusion terminal whose net is NOT a power net, drop the
++        # nodes whose li1 contact pad would touch/violate spacing to the near
++        # power rail, keeping the far-side node(s) -- exactly what the inverter
++        # does naturally. Applied AFTER the LVS terminal-join + transistor-terminal
++        # embedding so it operates on the final terminal set the router actually
++        # uses. Never empty a terminal: only drop when a clearing node remains.
++        def _rail_clearance(contact_layer):
++            import os as _os
++            reach = tech.via_size[contact_layer] // 2 \
++                + tech.minimum_enclosure.get((l_metal1, contact_layer), 0)
++            spacing = tech.min_spacing.get((l_metal1, l_metal1),
++                                           tech.wire_width.get(l_metal1, 0))
++            # RECIPE_LIFT_TIGHT=1: require only that the lifted pad does NOT TOUCH
++            # the rail (reach), not full li1 spacing. Narrow transistors (small W)
++            # have a diffusion so short that no node clears the full-spacing zone
++            # (clearcols=0 -> lift can't fire -> drain shorts to rail). Reach-only
++            # gets a clearing node; the pad may sit within li1 spacing of the rail
++            # (a DRC nit, DRC-dirty) but is LVS-clean (no merge).
++            if int(_os.environ.get("RECIPE_LIFT_TIGHT", "0")):
++                return reach
++            return reach + spacing
++        _rail_top_edge = tech.power_rail_width // 2                          # bottom (VSS) rail
++        _rail_bot_edge = tech.unit_cell_height - tech.power_rail_width // 2  # top (VDD) rail
++        # (diffusion layer -> (contact layer, which rail is adjacent))
++        _diff_rail = {
++            l_ndiffusion: (l_ndiff_contact, 'bottom'),
++            l_pdiffusion: (l_pdiff_contact, 'top'),
++        }
++        # Pass 1: aggregate, per (net, diffusion layer), the rail-adjacent ("would
++        # short") nodes and the clearing columns -- across ALL terminal entries of
++        # that net. extract_terminal_nodes emits one entry per diffusion shape, so a
++        # NOR's two parallel drains arrive as two SEPARATE single-column entries;
++        # they must be summed to see the >=2-column signature.
++        _railadj = {}    # (net, dlayer) -> set of rail-adjacent nodes
++        _clearcols = {}  # (net, dlayer) -> set of clearing columns
++        for _net, _terms in terminals_by_net:
++            if _net is None or is_power_net(_net):
++                continue
++            for _dlayer, (_clayer, _side) in _diff_rail.items():
++                _nodes = [t for t in _terms if t[0] == _dlayer]
++                if not _nodes:
++                    continue
++                _clr = _rail_clearance(_clayer)
++                if _side == 'bottom':
++                    _clears = [t for t in _nodes if (t[1][1] - _clr) > _rail_top_edge]
++                else:
++                    _clears = [t for t in _nodes if (t[1][1] + _clr) < _rail_bot_edge]
++                _railadj.setdefault((_net, _dlayer), set()).update(set(_nodes) - set(_clears))
++                _clearcols.setdefault((_net, _dlayer), set()).update(t[1][0] for t in _clears)
++        # Decide what to lift: a (net, dlayer) is the NOR/AOI short signature iff its
++        # rail-adjacent contacts span >=2 distinct COLUMNS (parallel drains forcing a
++        # low horizontal li1 run that merges with the rail) AND a clearing node exists
++        # to relocate to. Single-column rail-adjacent contacts (series/inverter drains)
++        # are left alone: the router routes them up on its own, and lifting them only
++        # adds middle-band congestion that can make compound cells unroutable.
++        _drop_nodes = set()
++        if getattr(tech, 'lift_signal_drains', False):
++            import os as _os
++            # Column threshold: default 2 = only the parallel-drain signature (avoids
++            # over-constraining single-height 2-layer cells). With more routing room
++            # (extra metal layers or double-height cells) single-column internal
++            # nodes can be lifted too -> set RECIPE_LIFT_MIN_COLS=1.
++            _lift_min_cols = int(_os.environ.get("RECIPE_LIFT_MIN_COLS", "2"))
++            for _key, _adj in _railadj.items():
++                _cols = {t[1][0] for t in _adj}
++                if len(_cols) >= _lift_min_cols and _clearcols.get(_key):
++                    logger.info(
++                        f"net-aware access: net='{_key[0]}' layer={_key[1]} lifting "
++                        f"{len(_adj)} rail-adjacent contact(s) across {len(_cols)} columns "
++                        f"off the rail.")
++                    _drop_nodes.update(_adj)
++        # Pass 2: remove the marked rail-adjacent nodes from every terminal entry.
++        if _drop_nodes:
++            terminals_by_net = [
++                (_net, [t for t in _terms if t not in _drop_nodes])
++                for _net, _terms in terminals_by_net
++            ]
++        # --- end Option A ---
++
+         # Check if each net really has a routing terminal.
+         # It can happen that there is none due to spacing issues.
+         error = False

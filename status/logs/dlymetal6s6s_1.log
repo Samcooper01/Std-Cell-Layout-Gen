@@ -1,0 +1,67 @@
+# cell:    sky130_fd_sc_hd__dlymetal6s6s_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/nl/dlymetal6s6s_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-09 20:54:20        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-09 20:54:20       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-09 20:54:20       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-09 20:54:20       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__dlymetal6s6s_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/nl/dlymetal6s6s_1.sp'.
+2026-07-09 20:54:20       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/nl/dlymetal6s6s_1.sp
+2026-07-09 20:54:20       standalone     INFO: Supply net: VPWR
+2026-07-09 20:54:20       standalone     INFO: Ground net: VGND
+2026-07-09 20:54:20       standalone     INFO: Initialize placer
+2026-07-09 20:54:20       standalone     INFO: Find next transistor placement
+2026-07-09 20:54:20     euler_placer     INFO: Found 1 placement candidates.
+2026-07-09 20:54:20       standalone     INFO: Cell placement:
+
+(VPWR, NET56, AB) |       None       |  (X, AB, VPWR)   |       None       | (NET56, NET48, VPWR) |       None       | (NET48, NET44, VPWR) |       None       | (NET44, NET52, VPWR) |       None       | (NET52, A, VPWR)
+(VGND, NET56, AB) |       None       |  (X, AB, VGND)   |       None       | (NET56, NET48, VGND) |       None       | (NET48, NET44, VGND) |       None       | (NET44, NET52, VGND) |       None       | (NET52, A, VGND)
+
+2026-07-09 20:54:20    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 20:54:20    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 20:54:22           router     INFO: Start routing
+2026-07-09 20:54:23       pathfinder     INFO: Start global routing.
+2026-07-09 20:54:24       pathfinder     INFO: Routing iteration 0
+2026-07-09 20:54:26       pathfinder     INFO: Routing iteration 1
+2026-07-09 20:54:27       pathfinder     INFO: Routing iteration 2
+2026-07-09 20:54:28       pathfinder     INFO: Routing iteration 3
+2026-07-09 20:54:28       pathfinder     INFO: Routing iteration 4
+2026-07-09 20:54:29       pathfinder     INFO: Routing iteration 5
+2026-07-09 20:54:30       pathfinder     INFO: Routing iteration 6
+2026-07-09 20:54:31       pathfinder     INFO: Routing iteration 7
+2026-07-09 20:54:32       pathfinder     INFO: Routing iteration 8
+2026-07-09 20:54:33       pathfinder     INFO: Routing iteration 9
+2026-07-09 20:54:34       pathfinder     INFO: Routing iteration 10
+2026-07-09 20:54:35       pathfinder     INFO: Routing iteration 11
+2026-07-09 20:54:36       pathfinder     INFO: Routing iteration 12
+2026-07-09 20:54:36       pathfinder     INFO: Routing iteration 13
+2026-07-09 20:54:37       pathfinder     INFO: Global routing done in 13 iterations
+2026-07-09 20:54:37       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 20:54:38       standalone     INFO: Routing successful.
+2026-07-09 20:54:38       standalone     INFO: Insert well-taps.
+2026-07-09 20:54:38    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 20:54:38    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 20:54:46           router     INFO: Start routing
+2026-07-09 20:54:47       pathfinder     INFO: Start global routing.
+2026-07-09 20:54:47       pathfinder     INFO: Routing iteration 0
+2026-07-09 20:54:47       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-09 20:54:47       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 20:54:47      drc_cleaner     INFO: SMT solver: Z3Solver
+2026-07-09 20:54:48      drc_cleaner  WARNING: Fixed shapes are excluded from spacing rules.
+2026-07-09 20:54:48      drc_cleaner     INFO: Invoke SMT solver
+2026-07-09 20:54:48      drc_cleaner     INFO: SMT result: SAT
+2026-07-09 20:54:48       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__dlymetal6s6s_1
+2026-07-09 20:54:48       standalone     INFO: LVS result: SUCCESS
+2026-07-09 20:54:48     magic_writer     INFO: Number of layers: 28
+2026-07-09 20:54:48     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__dlymetal6s6s_1
+2026-07-09 20:54:48     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/out/sky130_fd_sc_hd__dlymetal6s6s_1.mag
+2026-07-09 20:54:48       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/out/sky130_fd_sc_hd__dlymetal6s6s_1.lef
+2026-07-09 20:54:48       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/out/sky130_fd_sc_hd__dlymetal6s6s_1.gds
+2026-07-09 20:54:48     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dlymetal6s6s_1/out/sky130_fd_sc_hd__dlymetal6s6s_1.oas
+2026-07-09 20:54:48       standalone     INFO: Done (Total duration: 0:00:28.089268)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

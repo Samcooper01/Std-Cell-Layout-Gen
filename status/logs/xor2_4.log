@@ -1,0 +1,83 @@
+# cell:    sky130_fd_sc_hd__xor2_4
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/nl/xor2_4.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=meta router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=1 tight=1
+2026-07-10 18:09:32        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 18:09:32       standalone     INFO: Placement algorithm: MetaTransistorPlacer
+2026-07-10 18:09:32       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 18:09:32       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__xor2_4' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/nl/xor2_4.sp'.
+2026-07-10 18:09:32       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/nl/xor2_4.sp
+2026-07-10 18:09:32       standalone     INFO: Supply net: VPWR
+2026-07-10 18:09:32       standalone     INFO: Ground net: VGND
+2026-07-10 18:09:32       standalone     INFO: Initialize placer
+2026-07-10 18:09:32      meta_placer     INFO: Placement engine: EulerPlacer
+2026-07-10 18:09:32       standalone     INFO: Find next transistor placement
+2026-07-10 18:09:32     euler_placer     INFO: `EulerPlacer` will not perform well in this case. `HierarchicalPlacer` could be a better choice.
+2026-07-10 18:10:26       standalone     INFO: Cell placement:
+
+(VPWR, A, SNDPA) | (SNDPA, B, INOR) | (INOR, B, SNDPA) | (SNDPA, B, INOR) | (INOR, B, SNDPA) | (SNDPA, A, VPWR) | (VPWR, A, SNDPA) | (SNDPA, A, VPWR) | (VPWR, A, PMID)  | (PMID, A, VPWR)  | (VPWR, A, PMID)  | (PMID, A, VPWR)  | (VPWR, B, PMID)  | (PMID, B, VPWR)  | (VPWR, B, PMID)  | (PMID, INOR, X)  | (X, INOR, PMID)  | (PMID, INOR, X)  | (X, INOR, PMID)  | (PMID, B, VPWR) 
+(INOR, A, VGND)  | (VGND, A, INOR)  | (INOR, A, VGND)  | (VGND, A, INOR)  | (INOR, B, VGND)  | (VGND, B, INOR)  | (INOR, B, VGND)  | (VGND, A, SNDNA) | (SNDNA, A, VGND) | (VGND, A, SNDNA) | (SNDNA, A, VGND) | (VGND, INOR, X)  |  (X, B, SNDNA)   |  (SNDNA, B, X)   |  (X, B, SNDNA)   |  (SNDNA, B, X)   | (X, INOR, VGND)  | (VGND, INOR, X)  | (X, INOR, VGND)  | (VGND, B, INOR) 
+
+2026-07-10 18:10:26    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 18:10:26    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='INOR' layer=ndiffusion lifting 5 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='SNDNA' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='PMID' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 6 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='SNDPA' layer=pdiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='INOR' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 18:10:30           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 18:10:30           router     INFO: Start routing
+2026-07-10 18:10:32       pathfinder     INFO: Start global routing.
+2026-07-10 18:10:34       pathfinder     INFO: Routing iteration 0
+2026-07-10 18:10:47       pathfinder     INFO: Routing iteration 1
+2026-07-10 18:10:54       pathfinder     INFO: Routing iteration 2
+2026-07-10 18:11:02       pathfinder     INFO: Routing iteration 3
+2026-07-10 18:11:09       pathfinder     INFO: Routing iteration 4
+2026-07-10 18:11:16       pathfinder     INFO: Routing iteration 5
+2026-07-10 18:11:24       pathfinder     INFO: Routing iteration 6
+2026-07-10 18:11:31       pathfinder     INFO: Routing iteration 7
+2026-07-10 18:11:38       pathfinder     INFO: Routing iteration 8
+2026-07-10 18:11:46       pathfinder     INFO: Routing iteration 9
+2026-07-10 18:11:53       pathfinder     INFO: Routing iteration 10
+2026-07-10 18:12:01       pathfinder     INFO: Routing iteration 11
+2026-07-10 18:12:08       pathfinder     INFO: Routing iteration 12
+2026-07-10 18:12:16       pathfinder     INFO: Routing iteration 13
+2026-07-10 18:12:24       pathfinder     INFO: Routing iteration 14
+2026-07-10 18:12:31       pathfinder     INFO: Routing iteration 15
+2026-07-10 18:12:39       pathfinder     INFO: Routing iteration 16
+2026-07-10 18:12:47       pathfinder     INFO: Routing iteration 17
+2026-07-10 18:12:54       pathfinder     INFO: Global routing done in 17 iterations
+2026-07-10 18:12:54       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 18:13:01       standalone     INFO: Routing successful.
+2026-07-10 18:13:01       standalone     INFO: Insert well-taps.
+2026-07-10 18:13:01    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 18:13:01    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='INOR' layer=ndiffusion lifting 5 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='INOR' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='SNDNA' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='PMID' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 6 columns off the rail.
+2026-07-10 18:13:28           router     INFO: net-aware access: net='SNDPA' layer=pdiffusion lifting 4 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 18:13:28           router     INFO: Start routing
+2026-07-10 18:13:31       pathfinder     INFO: Start global routing.
+2026-07-10 18:13:31       pathfinder     INFO: Routing iteration 0
+2026-07-10 18:13:31       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-10 18:13:31       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 18:13:31       standalone     INFO: No minimum area violations.
+2026-07-10 18:13:31       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__xor2_4
+2026-07-10 18:13:31       standalone     INFO: LVS result: SUCCESS
+2026-07-10 18:13:31     magic_writer     INFO: Number of layers: 28
+2026-07-10 18:13:31     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__xor2_4
+2026-07-10 18:13:31     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/out/sky130_fd_sc_hd__xor2_4.mag
+2026-07-10 18:13:31       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/out/sky130_fd_sc_hd__xor2_4.lef
+2026-07-10 18:13:31       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/out/sky130_fd_sc_hd__xor2_4.gds
+2026-07-10 18:13:31     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/xor2_4/out/sky130_fd_sc_hd__xor2_4.oas
+2026-07-10 18:13:31       standalone     INFO: Done (Total duration: 0:03:59.141372)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

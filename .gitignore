@@ -1,0 +1,29 @@
+# external tool, cloned separately, not our work (see README "Setup")
+lclayout/
+
+# generated layout outputs & scratch run dirs
+.work/
+ladder_run/
+*test/
+hdtest*/
+sky130test/
+mylibrary/
+show/
+out/
+
+# generated artifacts
+*.gds
+*.lef
+*.mag
+*.oas
+*.png
+
+# python
+__pycache__/
+*.pyc
+
+# earlier one off scratch netlists
+hd_inv_1*.cdl
+
+# status/ is published on purpose: its logs, renders, and output files are kept
+!status/**

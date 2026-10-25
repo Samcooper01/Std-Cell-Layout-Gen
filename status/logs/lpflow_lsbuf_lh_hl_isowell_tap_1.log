@@ -1,0 +1,51 @@
+# cell:    sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/lpflow_lsbuf_lh_hl_isowell_tap_1/nl/lpflow_lsbuf_lh_hl_isowell_tap_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-10 10:45:08        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:45:08       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-10 10:45:08       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:45:08       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/lpflow_lsbuf_lh_hl_isowell_tap_1/nl/lpflow_lsbuf_lh_hl_isowell_tap_1.sp'.
+2026-07-10 10:45:08       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/lpflow_lsbuf_lh_hl_isowell_tap_1/nl/lpflow_lsbuf_lh_hl_isowell_tap_1.sp
+2026-07-10 10:45:08       standalone     INFO: Supply net: VPWR
+2026-07-10 10:45:08       standalone     INFO: Ground net: VGND
+2026-07-10 10:45:08       standalone     INFO: Initialize placer
+2026-07-10 10:45:08       standalone     INFO: Find next transistor placement
+2026-07-10 10:45:08     euler_placer     INFO: Found 2 placement candidates.
+2026-07-10 10:45:08       standalone     INFO: Cell placement:
+
+(VPWR, A_1028_32#, X) |       None       | (A_1028_32#, A_620_911#, VPWR) | (VPWR, A_620_911#, A_714_58#) |       None       | (VPWR, A_714_58#, A_620_911#) |       None       | (VPWRIN, A, A_505_297#) |       None       |       None       |       None       |       None       |       None      
+(VGND, A_1028_32#, X) |       None       | (A_1028_32#, A_620_911#, VGND) | (VGND, A, A_714_58#) | (A_714_58#, A, VGND) | (VGND, A, A_714_58#) | (A_714_58#, A, VGND) |       None       | (A_505_297#, A, VGND) | (VGND, A_505_297#, A_620_911#) | (A_620_911#, A_505_297#, VGND) | (VGND, A_505_297#, A_620_911#) | (A_620_911#, A_505_297#, VGND)
+
+2026-07-10 10:45:08    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:45:08    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:45:10           router    ERROR: Net 'A_1028_32#' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'A_505_297#' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'A_620_911#' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'X' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'A' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'A_714_58#' has no routing terminal.
+2026-07-10 10:45:10           router    ERROR: Net 'VPWRIN' has no routing terminal.
+2026-07-10 10:45:10       standalone    ERROR: failed to create layout: Nets without terminals. Check the routing graph (--debug-routing-graph)!
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]
+Traceback (most recent call last):
+  File "/home/sam/eda-env/bin/lclayout", line 6, in <module>
+    sys.exit(main())
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 995, in main
+    raise e
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 975, in main
+    cell, pin_geometries, debug_cell = layouter.create_cell_layout(cell_name, netlist_path, args.placement_file)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 828, in create_cell_layout
+    if self._06_route():
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 347, in _06_route
+    routing_trees = router.route(self.shapes, io_pins=self.io_pins,
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/router.py", line 227, in route
+    routing_solutions = list(routing_solutions)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/router.py", line 528, in _06_route
+    assert not error, "Nets without terminals. Check the routing graph (--debug-routing-graph)!"
+AssertionError: Nets without terminals. Check the routing graph (--debug-routing-graph)!

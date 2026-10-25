@@ -1,0 +1,24 @@
+diff --git a/src/lclayout/writer/magic_writer.py b/src/lclayout/writer/magic_writer.py
+index 1c87369..6f93bd9 100644
+--- a/src/lclayout/writer/magic_writer.py
++++ b/src/lclayout/writer/magic_writer.py
+@@ -177,10 +177,15 @@ def store_layout_to_magic_file(tech_name: str,
+ 
+                 for rect_str in rectangles_str:
+                     text_orientation = 0  # 0: center
+-                    mag_labels.append("rlabel {} {} {} {}".format(output_layer,
+-                                                                  rect_str,
+-                                                                  text_orientation,
+-                                                                  pin_name))
++                    # Emit an 'flabel' (font label) instead of a plain 'rlabel'. rlabels have
++                    # no font size, so Magic draws them at a tiny fixed screen size that is easy
++                    # to miss. flabels carry an explicit font + size and render as readable text,
++                    # matching the foundry cells (which use FreeSans at size ~200-340). Our
++                    # internal coordinate scale is ~2x the foundry's, so 400 reads comparably.
++                    # Format: flabel <layer> s <x0 y0 x1 y1> <pos> <font> <size> <rot> <ox> <oy> <text>
++                    font_size = 400
++                    mag_labels.append("flabel {} s {} {} FreeSans {} 0 0 0 {}".format(
++                        output_layer, rect_str, text_orientation, font_size, pin_name))
+ 
+                     # TODO: is this correct?
+                     mag_labels.append("port {} se".format(next(port_counter)))

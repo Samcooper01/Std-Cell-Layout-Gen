@@ -1,0 +1,74 @@
+# cell:    sky130_fd_sc_hd__o21bai_4
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/nl/o21bai_4.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=meta router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=2 tight=1
+2026-07-10 10:56:48        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:56:48       standalone     INFO: Placement algorithm: MetaTransistorPlacer
+2026-07-10 10:56:48       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:56:48       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__o21bai_4' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/nl/o21bai_4.sp'.
+2026-07-10 10:56:48       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/nl/o21bai_4.sp
+2026-07-10 10:56:48       standalone     INFO: Supply net: VPWR
+2026-07-10 10:56:48       standalone     INFO: Ground net: VGND
+2026-07-10 10:56:48       standalone     INFO: Initialize placer
+2026-07-10 10:56:48      meta_placer     INFO: Placement engine: EulerPlacer
+2026-07-10 10:56:48       standalone     INFO: Find next transistor placement
+2026-07-10 10:56:50       standalone     INFO: Cell placement:
+
+(B1, B1_N, VPWR) | (VPWR, A1, SNDA1) | (SNDA1, A1, VPWR) | (VPWR, A1, SNDA1) | (SNDA1, A1, VPWR) |  (VPWR, B1, Y)   |  (Y, A2, SNDA1)  |  (SNDA1, A2, Y)  |  (Y, A2, SNDA1)  |  (SNDA1, A2, Y)  |  (Y, B1, VPWR)   |  (VPWR, B1, Y)   |  (Y, B1, VPWR)  
+(B1, B1_N, VGND) | (VGND, A1, PNDA) | (PNDA, A1, VGND) | (VGND, A1, PNDA) | (PNDA, A1, VGND) | (VGND, A2, PNDA) | (PNDA, A2, VGND) | (VGND, A2, PNDA) |  (PNDA, B1, Y)   |  (Y, B1, PNDA)   |  (PNDA, B1, Y)   |  (Y, B1, PNDA)   | (PNDA, A2, VGND)
+
+2026-07-10 10:56:50    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:56:50    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:56:57           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:56:57           router     INFO: net-aware access: net='PNDA' layer=ndiffusion lifting 12 rail-adjacent contact(s) across 6 columns off the rail.
+2026-07-10 10:56:57           router     INFO: net-aware access: net='SNDA1' layer=pdiffusion lifting 8 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:56:57           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 8 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:56:57           router     INFO: Start routing
+2026-07-10 10:56:59       pathfinder     INFO: Start global routing.
+2026-07-10 10:57:02       pathfinder     INFO: Routing iteration 0
+2026-07-10 10:57:12       pathfinder     INFO: Routing iteration 1
+2026-07-10 10:57:19       pathfinder     INFO: Routing iteration 2
+2026-07-10 10:57:26       pathfinder     INFO: Routing iteration 3
+2026-07-10 10:57:34       pathfinder     INFO: Routing iteration 4
+2026-07-10 10:57:41       pathfinder     INFO: Routing iteration 5
+2026-07-10 10:57:48       pathfinder     INFO: Routing iteration 6
+2026-07-10 10:57:55       pathfinder     INFO: Routing iteration 7
+2026-07-10 10:58:02       pathfinder     INFO: Routing iteration 8
+2026-07-10 10:58:09       pathfinder     INFO: Routing iteration 9
+2026-07-10 10:58:16       pathfinder     INFO: Routing iteration 10
+2026-07-10 10:58:23       pathfinder     INFO: Routing iteration 11
+2026-07-10 10:58:30       pathfinder     INFO: Routing iteration 12
+2026-07-10 10:58:37       pathfinder     INFO: Routing iteration 13
+2026-07-10 10:58:44       pathfinder     INFO: Routing iteration 14
+2026-07-10 10:58:52       pathfinder     INFO: Routing iteration 15
+2026-07-10 10:58:59       pathfinder     INFO: Global routing done in 15 iterations
+2026-07-10 10:58:59       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 10:59:06       standalone     INFO: Routing successful.
+2026-07-10 10:59:06       standalone     INFO: Insert well-taps.
+2026-07-10 10:59:06    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:59:06    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:59:39           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 4 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:59:39           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 8 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:59:39           router     INFO: net-aware access: net='PNDA' layer=ndiffusion lifting 12 rail-adjacent contact(s) across 6 columns off the rail.
+2026-07-10 10:59:39           router     INFO: net-aware access: net='SNDA1' layer=pdiffusion lifting 8 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:59:39           router     INFO: Start routing
+2026-07-10 10:59:41       pathfinder     INFO: Start global routing.
+2026-07-10 10:59:41       pathfinder     INFO: Routing iteration 0
+2026-07-10 10:59:41       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-10 10:59:41       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 10:59:42       standalone     INFO: No minimum area violations.
+2026-07-10 10:59:42       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__o21bai_4
+2026-07-10 10:59:42       standalone     INFO: LVS result: SUCCESS
+2026-07-10 10:59:42     magic_writer     INFO: Number of layers: 28
+2026-07-10 10:59:42     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__o21bai_4
+2026-07-10 10:59:42     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/out/sky130_fd_sc_hd__o21bai_4.mag
+2026-07-10 10:59:42       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/out/sky130_fd_sc_hd__o21bai_4.lef
+2026-07-10 10:59:42       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/out/sky130_fd_sc_hd__o21bai_4.gds
+2026-07-10 10:59:42     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o21bai_4/out/sky130_fd_sc_hd__o21bai_4.oas
+2026-07-10 10:59:42       standalone     INFO: Done (Total duration: 0:02:53.786723)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [22, 157, 292, 427, 562, 697, 832, 967, 1102, 1237, 1372, 1507, 1642, 1777, 1912, 2047, 2182, 2317, 2452, 2587, 2722, 2857, 2992, 3127, 3262, 3397, 3532, 3667, 3802, 3937, 4072, 4207, 4342, 4477, 4612, 4747, 4882, 5017, 5152, 5287, 5422, 5557, 5692, 5827, 5962, 6097, 6232, 6367, 6502, 6637]
+grid_after: [0, 402, 427, 562, 697, 832, 967, 1102, 1237, 1372, 1507, 1642, 1777, 1902, 2047, 2182, 2317, 2452, 2587, 2722, 2857, 2992, 3127, 3262, 3397, 3532, 3667, 3802, 3937, 4072, 4207, 4342, 4477, 4612, 4747, 4882, 5017, 5152, 5287, 5422, 5557, 5692, 5827, 5962, 6097, 6232, 6257, 6660]

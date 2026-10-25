@@ -1,0 +1,58 @@
+# cell:    sky130_fd_sc_hd__clkinv_16
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/nl/clkinv_16.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=2 tight=1
+2026-07-09 19:13:45        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-09 19:13:45       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-09 19:13:45       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-09 19:13:45       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__clkinv_16' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/nl/clkinv_16.sp'.
+2026-07-09 19:13:45       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/nl/clkinv_16.sp
+2026-07-09 19:13:45       standalone     INFO: Supply net: VPWR
+2026-07-09 19:13:45       standalone     INFO: Ground net: VGND
+2026-07-09 19:13:45       standalone     INFO: Initialize placer
+2026-07-09 19:13:45       standalone     INFO: Find next transistor placement
+2026-07-09 19:13:46     euler_placer     INFO: Found 1 placement candidates.
+2026-07-09 19:13:46       standalone     INFO: Cell placement:
+
+  (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)   |   (VPWR, A, Y)   |   (Y, A, VPWR)  
+  (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |   (VGND, A, Y)   |   (Y, A, VGND)   |       None       |       None       |       None       |       None       |       None       |       None       |       None       |       None      
+
+2026-07-09 19:13:46    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 19:13:46    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 19:14:01           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 16 rail-adjacent contact(s) across 8 columns off the rail.
+2026-07-09 19:14:01           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 24 rail-adjacent contact(s) across 12 columns off the rail.
+2026-07-09 19:14:01           router     INFO: Start routing
+2026-07-09 19:14:06       pathfinder     INFO: Start global routing.
+2026-07-09 19:14:08       pathfinder     INFO: Routing iteration 0
+2026-07-09 19:14:35       pathfinder     INFO: Routing iteration 1
+2026-07-09 19:14:53       pathfinder     INFO: Routing iteration 2
+2026-07-09 19:15:13       pathfinder     INFO: Routing iteration 3
+2026-07-09 19:15:32       pathfinder     INFO: Global routing done in 3 iterations
+2026-07-09 19:15:32       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 19:15:53       standalone     INFO: Routing successful.
+2026-07-09 19:15:53       standalone     INFO: Insert well-taps.
+2026-07-09 19:15:53    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-09 19:15:53    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-09 19:17:03           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 16 rail-adjacent contact(s) across 8 columns off the rail.
+2026-07-09 19:17:03           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 24 rail-adjacent contact(s) across 12 columns off the rail.
+2026-07-09 19:17:04           router     INFO: Start routing
+2026-07-09 19:17:08       pathfinder     INFO: Start global routing.
+2026-07-09 19:17:10       pathfinder     INFO: Routing iteration 0
+2026-07-09 19:17:10       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-09 19:17:10       pathfinder     INFO: Run single-net optimizations.
+2026-07-09 19:17:11       standalone     INFO: No minimum area violations.
+2026-07-09 19:17:11       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__clkinv_16
+2026-07-09 19:17:11       standalone     INFO: LVS result: SUCCESS
+2026-07-09 19:17:11     magic_writer     INFO: Number of layers: 28
+2026-07-09 19:17:11     magic_writer     INFO: Processing cell: sky130_fd_sc_hd__clkinv_16
+2026-07-09 19:17:11     magic_writer     INFO: Writing MAG file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/out/sky130_fd_sc_hd__clkinv_16.mag
+2026-07-09 19:17:11       lef_writer     INFO: Write LEF: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/out/sky130_fd_sc_hd__clkinv_16.lef
+2026-07-09 19:17:11       gds_writer     INFO: Write GDS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/out/sky130_fd_sc_hd__clkinv_16.gds
+2026-07-09 19:17:11     oasis_writer     INFO: Write OASIS: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/clkinv_16/out/sky130_fd_sc_hd__clkinv_16.oas
+2026-07-09 19:17:11       standalone     INFO: Done (Total duration: 0:03:25.280146)
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [22, 157, 292, 427, 562, 697, 832, 967, 1102, 1237, 1372, 1507, 1642, 1777, 1912, 2047, 2182, 2317, 2452, 2587, 2722, 2857, 2992, 3127, 3262, 3397, 3532, 3667, 3802, 3937, 4072, 4207, 4342, 4477, 4612, 4747, 4882, 5017, 5152, 5287, 5422, 5557, 5692, 5827, 5962, 6097, 6232, 6367, 6502, 6637]
+grid_after: [0, 402, 427, 562, 697, 832, 967, 1102, 1237, 1372, 1507, 1642, 1777, 1902, 2047, 2182, 2317, 2452, 2587, 2722, 2857, 2992, 3127, 3262, 3397, 3532, 3667, 3802, 3937, 4072, 4207, 4342, 4477, 4612, 4747, 4882, 5017, 5152, 5287, 5422, 5557, 5692, 5827, 5962, 6097, 6232, 6257, 6660]

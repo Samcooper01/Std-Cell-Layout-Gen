@@ -1,0 +1,60 @@
+# cell:    sky130_fd_sc_hd__a2bb2o_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/a2bb2o_1/nl/a2bb2o_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-10 09:59:49        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 09:59:49       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-10 09:59:49       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 09:59:49       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__a2bb2o_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/a2bb2o_1/nl/a2bb2o_1.sp'.
+2026-07-10 09:59:49       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/a2bb2o_1/nl/a2bb2o_1.sp
+2026-07-10 09:59:49       standalone     INFO: Supply net: VPWR
+2026-07-10 09:59:49       standalone     INFO: Ground net: VGND
+2026-07-10 09:59:49       standalone     INFO: Initialize placer
+2026-07-10 09:59:49       standalone     INFO: Find next transistor placement
+2026-07-10 09:59:49     euler_placer     INFO: Found 1 placement candidates.
+2026-07-10 09:59:49       standalone     INFO: Cell placement:
+
+(VPWR, A1_N, SNDPA1N) | (SNDPA1N, A2_N, INOR) |       None       | (Y, INOR, PMID)  | (PMID, B1, VPWR) | (VPWR, B2, PMID) |       None       |   (X, Y, VPWR)  
+(VGND, A1_N, INOR) | (INOR, A2_N, VGND) |       None       | (Y, INOR, VGND)  | (VGND, B1, SNDNB1) | (SNDNB1, B2, Y)  |       None       |   (X, Y, VGND)  
+
+2026-07-10 09:59:49    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 09:59:49    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 09:59:50           router     INFO: Start routing
+2026-07-10 09:59:50       pathfinder     INFO: Start global routing.
+2026-07-10 09:59:51       pathfinder     INFO: Routing iteration 0
+2026-07-10 09:59:53       pathfinder     INFO: Routing iteration 1
+2026-07-10 09:59:53       pathfinder     INFO: Routing iteration 2
+2026-07-10 09:59:54       pathfinder     INFO: Routing iteration 3
+2026-07-10 09:59:55       pathfinder     INFO: Routing iteration 4
+2026-07-10 09:59:56       pathfinder     INFO: Routing iteration 5
+2026-07-10 09:59:57       pathfinder     INFO: Routing iteration 6
+2026-07-10 09:59:57       pathfinder     INFO: Routing iteration 7
+2026-07-10 09:59:58       pathfinder     INFO: Routing iteration 8
+2026-07-10 09:59:59       pathfinder     INFO: Routing iteration 9
+2026-07-10 10:00:00       pathfinder     INFO: Global routing done in 9 iterations
+2026-07-10 10:00:00       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 10:00:01       standalone     INFO: Routing successful.
+2026-07-10 10:00:01       standalone     INFO: Insert well-taps.
+2026-07-10 10:00:01    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:00:01    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:00:05           router     INFO: Start routing
+2026-07-10 10:00:06       pathfinder     INFO: Start global routing.
+2026-07-10 10:00:06       pathfinder     INFO: Routing iteration 0
+2026-07-10 10:00:06       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-10 10:00:06       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 10:00:06      drc_cleaner     INFO: SMT solver: Z3Solver
+2026-07-10 10:00:07      drc_cleaner  WARNING: Fixed shapes are excluded from spacing rules.
+2026-07-10 10:00:07      drc_cleaner     INFO: Invoke SMT solver
+2026-07-10 10:00:07      drc_cleaner     INFO: SMT result: UNSAT
+2026-07-10 10:00:07      drc_cleaner    ERROR: UNSAT: Constraints not satisfiable.
+2026-07-10 10:00:07       standalone    ERROR: Minimum area fixing failed!
+2026-07-10 10:00:07       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__a2bb2o_1
+2026-07-10 10:00:07              lvs  WARNING: Netlists don't match (use --verbose to display the netlists).
+2026-07-10 10:00:07       standalone     INFO: LVS result: FAILED
+2026-07-10 10:00:07       standalone    ERROR: LVS check failed!
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

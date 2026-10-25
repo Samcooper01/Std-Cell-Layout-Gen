@@ -1,0 +1,10 @@
+# Python runtime for the generator. Tested on CPython 3.10.
+# Install into a fresh venv, then install the lclayout engine editable:
+#   python3 -m venv ~/eda-env
+#   ~/eda-env/bin/pip install -r requirements.txt
+#   ~/eda-env/bin/pip install -e ./lclayout      # the cloned P&R engine
+klayout>=0.30          # GDS/OASIS + built in LVS/DRC engine (KLayout Python module)
+z3-solver>=4.12        # SMT solver used for DRC clean routing
+numpy>=1.24
+networkx>=2.8
+matplotlib>=3.6        # layout rendering (render.py), undeclared by lclayout, needed at import

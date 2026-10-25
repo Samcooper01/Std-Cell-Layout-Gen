@@ -1,0 +1,14 @@
+NOT YET LICENSED FOR DISTRIBUTION
+=================================
+
+Copyright (c) 2026 Sam Cooper. All rights reserved.
+
+This repository is a private work in progress. It is **not** yet released under an
+open source license. A license will be added only after the required IBM Open Source
+Program Office (OSPO) / intellectual property review is complete.
+
+Until then: no permission is granted to copy, distribute, or create derivative works.
+
+Third party components are governed by their own licenses:
+  - lclayout / LibreCell (Thomas Kramer), CERN OHL S; cloned separately, not included here.
+  - SkyWater sky130 PDK data, Apache 2.0.

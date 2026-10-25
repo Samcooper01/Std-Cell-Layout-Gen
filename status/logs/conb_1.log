@@ -1,0 +1,34 @@
+# cell:    sky130_fd_sc_hd__conb_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/conb_1/nl/conb_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-10 10:04:49        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:04:49       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-10 10:04:49       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:04:49       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__conb_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/conb_1/nl/conb_1.sp'.
+2026-07-10 10:04:49       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/conb_1/nl/conb_1.sp
+2026-07-10 10:04:49       standalone    ERROR: failed to create layout: Can't find a value for a R, C or L device in /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/conb_1/nl/conb_1.sp, line 3 in Netlist.read
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]
+Traceback (most recent call last):
+  File "/home/sam/eda-env/bin/lclayout", line 6, in <module>
+    sys.exit(main())
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 995, in main
+    raise e
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 975, in main
+    cell, pin_geometries, debug_cell = layouter.create_cell_layout(cell_name, netlist_path, args.placement_file)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 793, in create_cell_layout
+    self._01_load_netlist(netlist_path, cell_name)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lclayout/standalone.py", line 172, in _01_load_netlist
+    self._transistors_abstract, cell_pins = load_transistor_netlist(netlist_path, cell_name)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lccommon/net_util.py", line 169, in load_transistor_netlist
+    netlist, circuit = load_subcircuit(path, circuit_name)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lccommon/net_util.py", line 71, in load_subcircuit
+    netlist = load_netlist(path)
+  File "/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/lclayout/src/lccommon/net_util.py", line 39, in load_netlist
+    netlist.read(path, spice_reader)
+RuntimeError: Can't find a value for a R, C or L device in /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/conb_1/nl/conb_1.sp, line 3 in Netlist.read

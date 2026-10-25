@@ -1,0 +1,107 @@
+# cell:    sky130_fd_sc_hd__o32a_4
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o32a_4/nl/o32a_4.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=meta router=dijkstra mcon=300000 lift=1 layers=3 skipminarea=1 group=0 height=1 tight=1
+2026-07-10 11:02:17        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 11:02:17       standalone     INFO: Placement algorithm: MetaTransistorPlacer
+2026-07-10 11:02:17       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 11:02:17       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__o32a_4' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o32a_4/nl/o32a_4.sp'.
+2026-07-10 11:02:17       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o32a_4/nl/o32a_4.sp
+2026-07-10 11:02:17       standalone     INFO: Supply net: VPWR
+2026-07-10 11:02:17       standalone     INFO: Ground net: VGND
+2026-07-10 11:02:17       standalone     INFO: Initialize placer
+2026-07-10 11:02:17      meta_placer     INFO: Placement engine: EulerPlacer
+2026-07-10 11:02:17       standalone     INFO: Find next transistor placement
+2026-07-10 11:02:17     euler_placer     INFO: `EulerPlacer` will not perform well in this case. `HierarchicalPlacer` could be a better choice.
+2026-07-10 11:02:36       standalone     INFO: Cell placement:
+
+(SNDB1, B1, VPWR) |   (VPWR, Y, X)   |   (X, Y, VPWR)   |   (VPWR, Y, X)   |   (X, Y, VPWR)   | (VPWR, B1, SNDB1) |  (SNDB1, B2, Y)  |  (Y, A3, SNDA2)  | (SNDA2, A2, SNDA1) | (SNDA1, A1, VPWR) | (VPWR, A1, SNDA1) | (SNDA1, A2, SNDA2) |  (SNDA2, A3, Y)  |  (Y, B2, SNDB1) 
+  (VGND, Y, X)   |   (X, Y, VGND)   |   (VGND, Y, X)   |   (X, Y, VGND)   | (VGND, A3, PNDA) |  (PNDA, B1, Y)   |  (Y, B2, PNDA)   |  (PNDA, B1, Y)   |  (Y, B2, PNDA)   | (PNDA, A1, VGND) | (VGND, A1, PNDA) | (PNDA, A2, VGND) | (VGND, A2, PNDA) | (PNDA, A3, VGND)
+
+2026-07-10 11:02:36    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 11:02:36    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='PNDA' layer=ndiffusion lifting 5 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='SNDB1' layer=pdiffusion lifting 3 rail-adjacent contact(s) across 3 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='SNDA1' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: net-aware access: net='SNDA2' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:02:38           router     INFO: Start routing
+2026-07-10 11:02:39       pathfinder     INFO: Start global routing.
+2026-07-10 11:02:41       pathfinder     INFO: Routing iteration 0
+2026-07-10 11:02:48       pathfinder     INFO: Routing iteration 1
+2026-07-10 11:02:53       pathfinder     INFO: Routing iteration 2
+2026-07-10 11:02:57       pathfinder     INFO: Routing iteration 3
+2026-07-10 17:44:48       pathfinder     INFO: Routing iteration 4
+2026-07-10 17:44:52       pathfinder     INFO: Routing iteration 5
+2026-07-10 17:44:57       pathfinder     INFO: Routing iteration 6
+2026-07-10 17:45:01       pathfinder     INFO: Routing iteration 7
+2026-07-10 17:45:06       pathfinder     INFO: Routing iteration 8
+2026-07-10 17:45:11       pathfinder     INFO: Routing iteration 9
+2026-07-10 17:45:16       pathfinder     INFO: Routing iteration 10
+2026-07-10 17:45:20       pathfinder     INFO: Routing iteration 11
+2026-07-10 17:45:25       pathfinder     INFO: Routing iteration 12
+2026-07-10 17:45:30       pathfinder     INFO: Routing iteration 13
+2026-07-10 17:45:34       pathfinder     INFO: Routing iteration 14
+2026-07-10 17:45:38       pathfinder     INFO: Routing iteration 15
+2026-07-10 17:45:43       pathfinder     INFO: Routing iteration 16
+2026-07-10 17:45:48       pathfinder     INFO: Routing iteration 17
+2026-07-10 17:45:52       pathfinder     INFO: Routing iteration 18
+2026-07-10 17:45:57       pathfinder     INFO: Routing iteration 19
+2026-07-10 17:46:01       pathfinder     INFO: Routing iteration 20
+2026-07-10 17:46:05       pathfinder     INFO: Routing iteration 21
+2026-07-10 17:46:10       pathfinder     INFO: Routing iteration 22
+2026-07-10 17:46:14       pathfinder     INFO: Routing iteration 23
+2026-07-10 17:46:18       pathfinder     INFO: Routing iteration 24
+2026-07-10 17:46:23       pathfinder     INFO: Routing iteration 25
+2026-07-10 17:46:27       pathfinder     INFO: Routing iteration 26
+2026-07-10 17:46:31       pathfinder     INFO: Routing iteration 27
+2026-07-10 17:46:36       pathfinder     INFO: Routing iteration 28
+2026-07-10 17:46:40       pathfinder     INFO: Routing iteration 29
+2026-07-10 17:46:45       pathfinder     INFO: Routing iteration 30
+2026-07-10 17:46:49       pathfinder     INFO: Routing iteration 31
+2026-07-10 17:46:53       pathfinder     INFO: Routing iteration 32
+2026-07-10 17:46:57       pathfinder     INFO: Routing iteration 33
+2026-07-10 17:47:01       pathfinder     INFO: Routing iteration 34
+2026-07-10 17:47:05       pathfinder     INFO: Routing iteration 35
+2026-07-10 17:47:09       pathfinder     INFO: Routing iteration 36
+2026-07-10 17:47:14       pathfinder     INFO: Routing iteration 37
+2026-07-10 17:47:18       pathfinder     INFO: Routing iteration 38
+2026-07-10 17:47:23       pathfinder     INFO: Routing iteration 39
+2026-07-10 17:47:28       pathfinder     INFO: Routing iteration 40
+2026-07-10 17:47:33       pathfinder     INFO: Routing iteration 41
+2026-07-10 17:47:38       pathfinder     INFO: Routing iteration 42
+2026-07-10 17:47:42       pathfinder     INFO: Routing iteration 43
+2026-07-10 17:47:47       pathfinder     INFO: Routing iteration 44
+2026-07-10 17:47:51       pathfinder     INFO: Global routing done in 44 iterations
+2026-07-10 17:47:51       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 17:47:55       standalone     INFO: Routing successful.
+2026-07-10 17:47:55       standalone     INFO: Insert well-taps.
+2026-07-10 17:47:55    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 17:47:55    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='PNDA' layer=ndiffusion lifting 5 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='Y' layer=ndiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='SNDB1' layer=pdiffusion lifting 3 rail-adjacent contact(s) across 3 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='SNDA1' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: net-aware access: net='SNDA2' layer=pdiffusion lifting 2 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 17:48:12           router     INFO: Start routing
+2026-07-10 17:48:13       pathfinder     INFO: Start global routing.
+2026-07-10 17:48:14       pathfinder     INFO: Routing iteration 0
+2026-07-10 17:48:14       pathfinder     INFO: Global routing done in 0 iterations
+2026-07-10 17:48:14       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 17:48:14       standalone     INFO: No minimum area violations.
+2026-07-10 17:48:14       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__o32a_4
+2026-07-10 17:48:14              lvs  WARNING: Netlists don't match (use --verbose to display the netlists).
+2026-07-10 17:48:14       standalone     INFO: LVS result: FAILED
+2026-07-10 17:48:14       standalone    ERROR: LVS check failed!
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]

@@ -1,0 +1,52 @@
+# cell:    sky130_fd_sc_hd__dfsbp_1
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dfsbp_1/nl/dfsbp_1.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=0 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-10 10:10:21        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:10:21       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-10 10:10:21       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:10:21       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__dfsbp_1' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dfsbp_1/nl/dfsbp_1.sp'.
+2026-07-10 10:10:21       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/dfsbp_1/nl/dfsbp_1.sp
+2026-07-10 10:10:21       standalone     INFO: Supply net: VPWR
+2026-07-10 10:10:21       standalone     INFO: Ground net: VGND
+2026-07-10 10:10:21       standalone     INFO: Initialize placer
+2026-07-10 10:10:21       standalone     INFO: Find next transistor placement
+2026-07-10 10:10:22     euler_placer     INFO: Found 2 placement candidates.
+2026-07-10 10:10:22       standalone     INFO: Cell placement:
+
+(NET80, CLKPOS, M0) | (M0, CLKPOS, DB) | (DB, CLKNEG, M0) | (M0, CLKNEG, NET169) | (NET169, M1, VPWR) |  (VPWR, D, DB)   |       None       | (S0, SET_B, VPWR) | (VPWR, M0, NET192) | (NET192, CLKNEG, S0) | (S0, CLKPOS, NET156) | (NET156, S1, VPWR) |       None       | (CLKNEG, CLK, VPWR) |       None       | (CLKPOS, CLKNEG, VPWR) | (VPWR, SET_B, M1) |  (M1, M0, VPWR)  |       None       |  (S1, S0, VPWR)  |       None       | (Q, NET141, VPWR) |       None       | (NET141, S0, VPWR) |       None       | (Q_N, S0, VPWR) 
+(VGND, M0, NET129) | (NET129, CLKPOS, S0) | (S0, CLKNEG, NET89) | (NET89, S1, NET97) | (NET97, SET_B, VGND) |       None       | (CLKNEG, CLK, VGND) |       None       |  (DB, D, VGND)   |       None       | (NET80, M1, VGND) |       None       | (VGND, SET_B, NET112) | (NET112, M0, M1) |       None       | (CLKPOS, CLKNEG, VGND) |  (VGND, S0, S1)  |       None       | (VGND, S0, NET141) |       None       | (VGND, NET141, Q) |       None       | (VGND, S0, Q_N)  |       None       |       None       |       None      
+
+2026-07-10 10:10:22    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:10:22    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:10:28           router     INFO: Start routing
+2026-07-10 10:10:30       pathfinder     INFO: Start global routing.
+2026-07-10 10:10:37       pathfinder     INFO: Routing iteration 0
+2026-07-10 10:10:53       pathfinder     INFO: Routing iteration 1
+2026-07-10 10:11:01       pathfinder     INFO: Routing iteration 2
+2026-07-10 10:11:09       pathfinder     INFO: Routing iteration 3
+2026-07-10 10:11:19       pathfinder     INFO: Routing iteration 4
+2026-07-10 10:11:27       pathfinder     INFO: Routing iteration 5
+2026-07-10 10:11:35       pathfinder     INFO: Routing iteration 6
+2026-07-10 10:11:44       pathfinder     INFO: Routing iteration 7
+2026-07-10 10:11:53       pathfinder     INFO: Routing iteration 8
+2026-07-10 10:12:03       pathfinder     INFO: Routing iteration 9
+2026-07-10 10:12:12       pathfinder     INFO: Routing iteration 10
+2026-07-10 10:12:20       pathfinder     INFO: Routing iteration 11
+2026-07-10 10:12:30       pathfinder     INFO: Routing iteration 12
+2026-07-10 10:12:40       pathfinder     INFO: Routing iteration 13
+2026-07-10 10:12:51       pathfinder     INFO: Routing iteration 14
+2026-07-10 10:13:00       pathfinder     INFO: Routing iteration 15
+2026-07-10 10:13:11       pathfinder     INFO: Routing iteration 16
+2026-07-10 10:13:21       pathfinder     INFO: Routing iteration 17
+2026-07-10 10:13:31       pathfinder     INFO: Routing iteration 18
+2026-07-10 10:13:41       pathfinder     INFO: Routing iteration 19
+2026-07-10 10:13:50       pathfinder     INFO: Routing iteration 20
+2026-07-10 10:13:59       pathfinder     INFO: Routing iteration 21
+2026-07-10 10:14:11       pathfinder     INFO: Routing iteration 22
+2026-07-10 10:14:20       pathfinder     INFO: Routing iteration 23
+2026-07-10 10:14:31       pathfinder     INFO: Routing iteration 24
+2026-07-10 10:14:42       pathfinder     INFO: Routing iteration 25
+2026-07-10 10:14:52       pathfinder     INFO: Routing iteration 26
+2026-07-10 10:15:02       pathfinder     INFO: Routing iteration 27
+2026-07-10 10:15:12       pathfinder     INFO: Routing iteration 28

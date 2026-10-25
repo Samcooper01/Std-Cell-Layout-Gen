@@ -1,0 +1,19 @@
+# Golden cells, the regression set. Each must build DRC/LVS-clean on every commit.
+# One short cell name per line; blank lines and #-comments ignored.
+inv_1
+buf_1
+clkinv_1
+nand2_1
+nand3_1
+nand4_1
+nor2_1
+and2_1
+and3_1
+or2_1
+nand2b_1
+nor2b_1
+xor2_1
+mux2_1
+a21oi_1
+a21o_1
+a22oi_1

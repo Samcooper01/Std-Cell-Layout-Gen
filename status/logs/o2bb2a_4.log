@@ -1,0 +1,63 @@
+# cell:    sky130_fd_sc_hd__o2bb2a_4
+# netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o2bb2a_4/nl/o2bb2a_4.sp
+# tech:    /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+# recipe:  placer=hierarchical router=dijkstra mcon=300000 lift=1 layers=2 skipminarea=0 group=0 height=1 tight=0
+2026-07-10 10:59:54        tech_util     INFO: Loading tech file: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/tech/sky130_hd_tech.py
+2026-07-10 10:59:54       standalone     INFO: Placement algorithm: HierarchicalPlacer
+2026-07-10 10:59:54       standalone     INFO: Signal routing algorithm: DijkstraRouter
+2026-07-10 10:59:54       standalone     INFO: Create layout for cell 'sky130_fd_sc_hd__o2bb2a_4' from '/home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o2bb2a_4/nl/o2bb2a_4.sp'.
+2026-07-10 10:59:54       standalone     INFO: Load netlist: /home/sam/Geetus2.0/foundation/Custom-Circuits/sky130-cellgen/.work/status/o2bb2a_4/nl/o2bb2a_4.sp
+2026-07-10 10:59:54       standalone     INFO: Supply net: VPWR
+2026-07-10 10:59:54       standalone     INFO: Ground net: VGND
+2026-07-10 10:59:54       standalone     INFO: Initialize placer
+2026-07-10 10:59:54       standalone     INFO: Find next transistor placement
+2026-07-10 10:59:54     euler_placer     INFO: Found 1 placement candidates.
+2026-07-10 10:59:54       standalone     INFO: Cell placement:
+
+(VPWR, A2_N, INAND) | (INAND, A2_N, VPWR) | (VPWR, A1_N, INAND) | (INAND, A1_N, VPWR) |       None       | (Y, INAND, VPWR) | (VPWR, INAND, Y) | (Y, B2, SNDPB1)  | (SNDPB1, B1, VPWR) | (VPWR, B1, SNDPB1) | (SNDPB1, B2, Y)  |       None       |   (VPWR, Y, X)   |   (X, Y, VPWR)   |   (VPWR, Y, X)   |   (X, Y, VPWR)  
+(SNDNA1N, A2_N, INAND) | (INAND, A2_N, SNDNA1N) | (SNDNA1N, A1_N, VGND) | (VGND, A1_N, SNDNA1N) |       None       | (NMID, INAND, Y) | (Y, INAND, NMID) | (NMID, B2, VGND) | (VGND, B1, NMID) | (NMID, B1, VGND) | (VGND, B2, NMID) |       None       |   (VGND, Y, X)   |   (X, Y, VGND)   |   (VGND, Y, X)   |   (X, Y, VGND)  
+
+2026-07-10 10:59:54    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 10:59:54    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='NMID' layer=ndiffusion lifting 18 rail-adjacent contact(s) across 6 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='SNDNA1N' layer=ndiffusion lifting 12 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 15 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='INAND' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='SNDPB1' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:59:57           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 10:59:57           router     INFO: Start routing
+2026-07-10 10:59:57       pathfinder     INFO: Start global routing.
+2026-07-10 10:59:59       pathfinder     INFO: Routing iteration 0
+2026-07-10 11:00:03       pathfinder     INFO: Routing iteration 1
+2026-07-10 11:00:06       pathfinder     INFO: Routing iteration 2
+2026-07-10 11:00:08       pathfinder     INFO: Global routing done in 2 iterations
+2026-07-10 11:00:08       pathfinder     INFO: Run single-net optimizations.
+2026-07-10 11:00:10       standalone     INFO: Routing successful.
+2026-07-10 11:00:10       standalone     INFO: Insert well-taps.
+2026-07-10 11:00:10    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'pplus'.
+2026-07-10 11:00:10    routing_graph  WARNING: No via weight specified from layer 'metal1' to 'nplus'.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='NMID' layer=ndiffusion lifting 39 rail-adjacent contact(s) across 13 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='Y' layer=pdiffusion lifting 15 rail-adjacent contact(s) across 5 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='X' layer=ndiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='X' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='SNDNA1N' layer=ndiffusion lifting 12 rail-adjacent contact(s) across 4 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='INAND' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:00:23           router     INFO: net-aware access: net='SNDPB1' layer=pdiffusion lifting 6 rail-adjacent contact(s) across 2 columns off the rail.
+2026-07-10 11:00:23           router    ERROR: Net 'VGND' has no routing terminal.
+2026-07-10 11:00:23       standalone  WARNING: Failed to route well-taps. Nets without terminals. Check the routing graph (--debug-routing-graph)!.
+2026-07-10 11:00:23       standalone  WARNING: Well-taps could not be routed.
+2026-07-10 11:00:23      drc_cleaner     INFO: SMT solver: Z3Solver
+2026-07-10 11:00:24      drc_cleaner  WARNING: Fixed shapes are excluded from spacing rules.
+2026-07-10 11:00:24      drc_cleaner     INFO: Invoke SMT solver
+2026-07-10 11:00:25      drc_cleaner     INFO: SMT result: SAT
+2026-07-10 11:00:25       standalone     INFO: Running LVS check on cell: sky130_fd_sc_hd__o2bb2a_4
+2026-07-10 11:00:25              lvs  WARNING: Netlists don't match (use --verbose to display the netlists).
+2026-07-10 11:00:25       standalone     INFO: LVS result: FAILED
+2026-07-10 11:00:25       standalone    ERROR: LVS check failed!
+Minimum Spacing 270 for pdiff_contact too small because of pdiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 270 for ndiff_contact too small because of ndiffusion, minimum should be 390(=270+2*60) Fixing minimum_spacing
+Minimum Spacing 390 for pdiff_contact - ndiff_contact too small because of ndiffusion, minimum should be 390(=270+60+60) Fixing minimum_spacing
+Minimum Spacing 190 for via1 too small because of metal1, minimum should be 260(=140+2*60) Fixing minimum_spacing
+grid_before: [45, 180, 315, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1935, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 3015, 3150, 3285]
+grid_after: [0, 425, 450, 585, 720, 855, 990, 1125, 1260, 1395, 1530, 1665, 1800, 1925, 2070, 2205, 2340, 2475, 2610, 2745, 2880, 2905, 3330]
