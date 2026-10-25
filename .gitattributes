@@ -1,0 +1,11 @@
+# The cell netlist corpus is SkyWater's file, not ours, so keep it out of the language
+# statistics; the language override stops GitHub reading .sp as SourcePawn, a game
+# scripting language, which is what it guesses from the extension alone.
+cells/sky130_hd_all_cells.sp linguist-vendored=true
+*.sp linguist-language=SPICE
+
+# Tool output rather than source: layouts, abstracts, renders and run logs.
+*.gds linguist-generated=true
+*.lef linguist-generated=true
+*.png linguist-generated=true
+*.log linguist-generated=true
